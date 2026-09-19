@@ -411,7 +411,7 @@ body.loading{overflow:hidden}
    Hero-dan keiin bet ASHYQ: #f5f5f7 fon, aq tildar (radius 20), qara matin #1d1d1f, sur qosymsha
    #6e6e73, ortalangan iri taqyryp (SF Pro / Inter 700, -.025em), keng bos oryn, jinishke syzyqtar emes -
    karta ustine karta. Mys ekpin tek arekette (tuime, silteme) - hero-men baylanys. */
-.below{background:#f5f5f7;color:#1d1d1f;padding:4px 0 36px}
+.below{background:#f5f5f7;color:#1d1d1f;padding:4px 0 clamp(56px,8vw,96px)}
 .below .sec{padding:clamp(52px,7vw,88px) 0 0}
 .below .sec-h{text-align:center;max-width:640px;margin:0 auto}
 .below .eyebrow{color:#B05A16}
@@ -522,13 +522,42 @@ body.sheet-open{overflow:hidden}
 .card .more{grid-column:1;margin-top:8px;font-size:14.5px;font-weight:600;color:#B05A16;justify-self:start;
   display:inline-flex;align-items:center;gap:5px;padding:2px 0 4px}
 .card .more svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.below footer{border-top:1px solid rgba(0,0,0,.08);margin-top:clamp(44px,6vw,72px);padding:18px 0 0;
-  font-size:12px;color:#6e6e73;text-align:center;line-height:1.5}
-/* futerdegi til siltemeleri (ashyq bolimde header joq) */
-.below .flang{display:flex;justify-content:center;gap:18px;margin-top:6px}
-.below .flang button{font-size:12.5px;color:#6e6e73;padding:8px 2px;min-height:36px}
-.below .flang button.on{color:#1d1d1f;font-weight:600}
-.below .flang button:focus-visible{outline:2px solid #B05A16;outline-offset:2px;border-radius:4px}
+/* ---------- TOBYLGY QYZMETTERI: qarangy brend jolagy (bet tolyq ainalym: qarangy hero -> ashyq duken -> qarangy brend) ----------
+   Demo betti kim jasagany jane sol qyzmetterdin tizimi + bagasy. Ar til - WhatsApp siltemesi, qyzmet aty jazylgan hat. */
+.svc{background:var(--bg);color:var(--tx);padding:clamp(56px,8vw,96px) 0 28px}
+.svc .sec-h{text-align:center;max-width:640px;margin:0 auto}
+.svc .eyebrow{color:var(--cu2)}
+.svc h2{color:var(--tx);font-family:var(--f-display);font-weight:700;letter-spacing:-.025em;line-height:1.08;
+  font-size:clamp(28px,4.6vw,44px);margin-top:10px}
+.svc .lede{color:var(--dim);font-size:clamp(15px,1.8vw,19px);line-height:1.5;margin:12px auto 0;max-width:48ch}
+.sgrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:clamp(26px,4vw,40px)}
+@media (min-width:560px){ .sgrid{grid-template-columns:1fr 1fr} }
+@media (min-width:900px){ .sgrid{grid-template-columns:repeat(3,1fr)} }
+.svc .s{display:flex;flex-direction:column;padding:20px 18px 18px;border-radius:20px;color:inherit;
+  background:rgba(255,255,255,.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.09), 0 0 0 .5px rgba(255,255,255,.08);
+  transition:background .2s ease, transform .25s ease}
+.svc .s:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+.svc .s:focus-visible{outline:2px solid var(--cu);outline-offset:3px}
+.svc .sn{font-size:17px;font-weight:600;letter-spacing:-.01em}
+.svc .sd{font-size:14px;color:var(--dim);line-height:1.45;margin-top:5px}
+.svc .spr{margin-top:auto;padding-top:14px;font-family:var(--f-display);font-size:22px;font-weight:700;letter-spacing:-.02em;
+  color:var(--cu2);font-variant-numeric:tabular-nums}
+.svc .sl{margin-top:8px;font-size:14px;font-weight:500;color:var(--cu2)}
+.svc .sl::after{content:"\203A";margin-left:5px}
+.svc .snote{margin-top:16px;font-size:13px;color:var(--faint);text-align:center;line-height:1.5}
+.svc .scta{display:flex;justify-content:center;margin-top:22px}
+.svc .scta .btn{padding:14px 26px;font-size:15px;font-weight:600;border-radius:999px;border:0;gap:8px;white-space:nowrap;
+  background:linear-gradient(180deg,#E8963C,#D8802A);color:#1A120A;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(0,0,0,.12), 0 2px 12px rgba(216,128,42,.3)}
+.svc .scta .btn:hover{background:linear-gradient(180deg,#F0A24A,#E08A2E)}
+.svc .scta .btn svg{width:16px;height:16px;fill:currentColor;flex:none}
+.svc footer{border-top:1px solid rgba(255,255,255,.1);margin-top:clamp(40px,6vw,64px);padding:18px 0 0;
+  font-size:12px;color:var(--faint);text-align:center;line-height:1.5}
+.svc .flang{display:flex;justify-content:center;gap:18px;margin-top:6px}
+.svc .flang button{font-size:12.5px;color:var(--dim);padding:8px 2px;min-height:36px}
+.svc .flang button.on{color:var(--tx);font-weight:600}
+.svc .flang button:focus-visible{outline:2px solid var(--cu);outline-offset:2px;border-radius:4px}
 </style>
 
 <div class="intro" id="intro" aria-hidden="true">
@@ -623,12 +652,26 @@ body.sheet-open{overflow:hidden}
     </div>
   </section>
 
+</div>
+</div>
+
+<section class="svc" id="svc">
+<div class="wrap">
+  <div class="sec-h">
+    <div class="eyebrow" data-i18n="svcEyebrow">Tobylğy · қызметтер</div>
+    <h2 data-i18n="svcH2">Сіздің бизнесіңізге де осындай сайт</h2>
+    <p class="lede" data-i18n="svcLede">Бұл бет — Tobylğy жұмысының үлгісі. Қызылорда бизнесіне арзан, жылдам, телефонға бейімделген беттер жасаймын: бағасы суретте тұрған дүкен, каталог, WhatsApp-қа дайын хат.</p>
+  </div>
+  <div class="sgrid" id="svcGrid"></div>
+  <div class="snote" data-i18n="svcNote">Бағалар — бастапқы, нақты сома жұмыс көлеміне қарай. Қызылорда бойынша кездесуге өзім келемін.</div>
+  <div class="scta"><a class="btn" id="waSvc" href="https://wa.me/77478399145" target="_blank" rel="noopener"><span data-i18n="svcCta">Сайт туралы жазу</span></a></div>
+
   <footer>
     <div data-i18n="footer">Үлгі бет · Tobylğy · бағалар, фото және мекенжай — үлгі, сіздікімен ауыстырылады</div>
     <div class="flang"><button type="button" data-lang="kk" class="on">Қазақша</button><button type="button" data-lang="ru">Русский</button></div>
   </footer>
 </div>
-</div>
+</section>
 </main>
 
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="shNm" aria-hidden="true">
@@ -679,7 +722,13 @@ body.sheet-open{overflow:hidden}
       addrK:"Мекенжай", addrV:"Қызылорда, сіздің мекенжайыңыз", hoursK:"Уақыт", hoursV:"10:00 — 20:00, күн сайын", telK:"Телефон",
       footer:"Үлгі бет · Tobylğy · бағалар, фото және мекенжай — үлгі, сіздікімен ауыстырылады",
       waItem:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын.\nТауар: {nm} ({ds})\nСайттағы бағасы: {pr}\nҚолжетімділігі, жеткізу және бөліп төлеу туралы айтып жіберіңізші.",
-      waGeneral:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын. Қонақ бөлмеге жиһаз таңдауға көмектесіңізші."
+      waGeneral:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын. Қонақ бөлмеге жиһаз таңдауға көмектесіңізші.",
+      svcEyebrow:"Tobylğy · қызметтер", svcH2:"Сіздің бизнесіңізге де осындай сайт",
+      svcLede:"Бұл бет — Tobylğy жұмысының үлгісі. Қызылорда бизнесіне арзан, жылдам, телефонға бейімделген беттер жасаймын: бағасы суретте тұрған дүкен, каталог, WhatsApp-қа дайын хат.",
+      svcNote:"Бағалар — бастапқы, нақты сома жұмыс көлеміне қарай. Қызылорда бойынша кездесуге өзім келемін.",
+      svcCta:"Сайт туралы жазу", svcMore:"Жазу",
+      waSvc:"Сәлеметсіз бе! Tobylğy демо сайтын көрдім. «{nm}» қызметі қызықтырды. Бағасы мен мерзімін айтып жіберіңізші.",
+      waSvcGeneral:"Сәлеметсіз бе! Tobylğy демо сайтын көрдім. Өз бизнесіме осындай сайт керек. Бағасы мен мерзімін айтып жіберіңізші."
     },
     ru: {
       title:"Tobylğy · Гостиная", h1:"Соберём комнату целиком",
@@ -700,7 +749,13 @@ body.sheet-open{overflow:hidden}
       addrK:"Адрес", addrV:"Кызылорда, ваш адрес", hoursK:"Часы", hoursV:"10:00 — 20:00, ежедневно", telK:"Телефон",
       footer:"Демо-страница · Tobylğy · цены, фото и адрес — образец, заменяются вашими",
       waItem:"Здравствуйте! Пишу с сайта Tobylğy.\nТовар: {nm} ({ds})\nЦена на сайте: {pr}\nПодскажите, пожалуйста, наличие, доставку и рассрочку.",
-      waGeneral:"Здравствуйте! Пишу с сайта Tobylğy. Помогите, пожалуйста, подобрать мебель для гостиной."
+      waGeneral:"Здравствуйте! Пишу с сайта Tobylğy. Помогите, пожалуйста, подобрать мебель для гостиной.",
+      svcEyebrow:"Tobylğy · услуги", svcH2:"Такой же сайт для вашего бизнеса",
+      svcLede:"Эта страница — образец работы Tobylğy. Делаю недорогие, быстрые, мобильные страницы для бизнеса Кызылорды: магазин с ценами на фото, каталог, готовое письмо в WhatsApp.",
+      svcNote:"Цены стартовые, точная сумма зависит от объёма. По Кызылорде приезжаю на встречу сам.",
+      svcCta:"Написать о сайте", svcMore:"Написать",
+      waSvc:"Здравствуйте! Посмотрел демо-сайт Tobylğy. Интересует услуга «{nm}». Подскажите, пожалуйста, цену и сроки.",
+      waSvcGeneral:"Здравствуйте! Посмотрел демо-сайт Tobylğy. Хочу такой же сайт для своего бизнеса. Подскажите, пожалуйста, цену и сроки."
     }
   };
   function T(key){ var d = I18N[lang] || I18N.kk; return (key in d) ? d[key] : (I18N.kk[key] || key); }
@@ -872,6 +927,44 @@ body.sheet-open{overflow:hidden}
   /* WhatsApp: daiyn hat. Kartochkadan bassa - qai tauardan kirgeni jazylyp turady,
      sondyqtan satushy birden ne turaly ekenin biledi (suramaidy). */
   var WA_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.97L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.1c-.24.68-1.42 1.32-1.95 1.36-.5.04-.98.22-3.3-.69-2.77-1.09-4.53-3.92-4.67-4.1-.14-.18-1.12-1.49-1.12-2.84 0-1.35.71-2.01.96-2.29.25-.27.55-.34.73-.34.18 0 .37 0 .53.01.17.01.4-.06.62.48.24.57.8 1.97.87 2.11.07.14.12.31.02.49-.09.18-.14.29-.28.45-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.27.72 1.18 1.54 1.91 1.06.94 1.95 1.23 2.22 1.37.27.14.43.12.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.23.61-.14.25.09 1.6.75 1.87.89.27.14.45.2.52.32.07.11.07.66-.17 1.34z"/></svg>';
+  /* Tobylgy qyzmetteri: nm/ds/pr - {kk, ru}. Bagalar - bastapqy, iesi ozgertedi. */
+  var SVC = [
+    {nm:{kk:"Бір беттік сайт", ru:"Одностраничный сайт"},
+     ds:{kk:"Осы бет сияқты: телефонға бейімделген, бағалар, WhatsApp-қа дайын хат. 3–5 күн.", ru:"Как эта страница: под телефон, цены, готовое письмо в WhatsApp. 3–5 дней."},
+     pr:{kk:"35 000 ₸-ден", ru:"от 35 000 ₸"}},
+    {nm:{kk:"Тауар каталогы", ru:"Каталог товаров"},
+     ds:{kk:"Суреттер, сипаттама, бағалар, бөліп төлеу сомасы. 20 тауарға дейін.", ru:"Фото, описания, цены, сумма рассрочки. До 20 товаров."},
+     pr:{kk:"20 000 ₸-ден", ru:"от 20 000 ₸"}},
+    {nm:{kk:"Бөлме туры (панорама)", ru:"Тур по залу (панорама)"},
+     ds:{kk:"Дүкеніңіздің фотосы, үстінде белгілер мен бағалар — осы беттегідей.", ru:"Фото вашего зала с метками и ценами — как на этой странице."},
+     pr:{kk:"15 000 ₸", ru:"15 000 ₸"}},
+    {nm:{kk:"Екі тіл", ru:"Два языка"},
+     ds:{kk:"Қазақша және орысша, бір түймемен ауысады.", ru:"Казахский и русский, переключение одной кнопкой."},
+     pr:{kk:"5 000 ₸", ru:"5 000 ₸"}},
+    {nm:{kk:"Домен және хостинг", ru:"Домен и хостинг"},
+     ds:{kk:"Өз мекенжайыңыз (.kz), SSL, баптау. Домен бағасы бөлек.", ru:"Свой адрес (.kz), SSL, настройка. Стоимость домена отдельно."},
+     pr:{kk:"5 000 ₸", ru:"5 000 ₸"}},
+    {nm:{kk:"Қолдау", ru:"Поддержка"},
+     ds:{kk:"Бағалар мен суреттерді жаңарту, ұсақ өзгерістер, WhatsApp-та байланыс.", ru:"Обновление цен и фото, мелкие правки, связь в WhatsApp."},
+     pr:{kk:"5 000 ₸ / ай", ru:"5 000 ₸ / мес"}}
+  ];
+  function waSvcLink(sv){
+    var t = sv ? T("waSvc").replace("{nm}", L(sv.nm)) : T("waSvcGeneral");
+    return "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+  }
+  function renderSvc(){
+    var g = document.getElementById("svcGrid"); if (!g) return;
+    g.innerHTML = "";
+    SVC.forEach(function(sv){
+      var a = document.createElement("a");
+      a.className = "s"; a.target = "_blank"; a.rel = "noopener"; a.href = waSvcLink(sv);
+      a.innerHTML = '<span class="sn">' + esc(L(sv.nm)) + '</span><span class="sd">' + esc(L(sv.ds)) + '</span>' +
+                    '<span class="spr">' + esc(L(sv.pr)) + '</span><span class="sl">' + esc(T("svcMore")) + '</span>';
+      g.appendChild(a);
+    });
+    var c = document.getElementById("waSvc"); if (c) c.href = waSvcLink(null);
+  }
+
   function waText(s2){
     if (!s2) return T("waGeneral");
     return T("waItem").replace("{nm}", L(s2.nm)).replace("{ds}", L(s2.ds)).replace("{pr}", s2.pr);
@@ -1408,6 +1501,8 @@ body.sheet-open{overflow:hidden}
   var waHero = document.getElementById("waHero");
   var waAll = [];
   if (waHero){ waHero.insertAdjacentHTML("afterbegin", WA_ICON); waAll.push(waHero); }
+  var waSvcBtn = document.getElementById("waSvc");
+  if (waSvcBtn) waSvcBtn.insertAdjacentHTML("afterbegin", WA_ICON);      /* href-i renderSvc() qoyady */
   Array.prototype.forEach.call(document.querySelectorAll(".cta2 a[href^=\"https://wa.me/\"]"), function(a){
     a.insertAdjacentHTML("afterbegin", WA_ICON); waAll.push(a);
   });
@@ -1427,6 +1522,7 @@ body.sheet-open{overflow:hidden}
     document.getElementById("hintT").textContent = T("hint").replace("{n}", SPOTS.length);
     waAll.forEach(function(a){ a.href = waLink(null); });
     renderTiles();
+    renderSvc();
     if (openIdx >= 0) showCard(openIdx, true);
     if (sheetOn && sheetIdx >= 0) fillSheet(sheetIdx);
   }
