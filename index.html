@@ -267,7 +267,7 @@ body.loading{overflow:hidden}
 .htext .cta .btn:hover{background:linear-gradient(180deg, rgba(240,160,70,.82), rgba(222,136,46,.76))}
 .htext.gone{visibility:hidden}
 /* tabloidyn qalyndygy: burylganda sol jaq qyry korinedi (jeke gomografiya) */
-.edge{position:absolute;left:0;top:0;z-index:5;pointer-events:none;transform-origin:0 0;display:none;
+.edge{position:absolute;left:0;top:0;z-index:5;pointer-events:none;transform-origin:0 0;display:none;border-radius:2px;
   background:linear-gradient(180deg,rgba(244,248,252,.95),rgba(206,214,222,.95))}
 
 .btn{display:inline-flex;align-items:center;border-radius:3px;font-weight:600;
@@ -1199,12 +1199,16 @@ body.sheet-open{overflow:hidden}
     var dn = [-n[0] * sp, cp, -n[2] * sp];                      /* tomen bagyt, terbeliste kameraga iiledi */
     var TL = v3(v3(C, r1, -cam.Wp / 2), [0, 1, 0], -cam.Hp / 2);
     var TR = v3(TL, r1, cam.Wp), BL = v3(TL, dn, cam.Hp), BR = v3(TR, dn, cam.Hp);
-    var d = 0.01 * cam.Wp, TLb = v3(TL, n, d), BLb = v3(BL, n, d), TRb = v3(TR, n, d), BRb = v3(BR, n, d);
+    /* qyr (qalyndyq): kartanyn burysh radiusy 8cqw - qyrdy eki ushynan sonsha qysqartamyz, aitpese dongelek
+       burysh aimagynda tik syzyq bolyp shygyp turady (paidalanushy skrinshoty, 2026-09-20) */
+    var d = 0.01 * cam.Wp, ins = 0.085 * cam.Wp;
+    var TLe = v3(TL, dn, ins), BLe = v3(BL, dn, -ins), TRe = v3(TR, dn, ins), BRe = v3(BR, dn, -ins);
+    var TLb = v3(TLe, n, d), BLb = v3(BLe, n, d), TRb = v3(TRe, n, d), BRb = v3(BRe, n, d);
     var M = v3(TL, dn, cam.Hp / 2), MR = v3(TR, dn, cam.Hp / 2);
     var vis = (M[0] * r1[0] + M[2] * r1[2]) > 0.002;           /* sol qyr kameraga qaraidy ma */
     var visR = (MR[0] * r1[0] + MR[2] * r1[2]) < -0.002;       /* on qyr (jazyq kuide korinedi) */
-    return [[projS(TL), projS(TR), projS(BR), projS(BL)], [projS(TL), projS(TLb), projS(BLb), projS(BL)], vis, tr, ro,
-            [projS(TR), projS(TRb), projS(BRb), projS(BR)], visR];
+    return [[projS(TL), projS(TR), projS(BR), projS(BL)], [projS(TLe), projS(TLb), projS(BLb), projS(BLe)], vis, tr, ro,
+            [projS(TRe), projS(TRb), projS(BRb), projS(BRe)], visR];
   }
 
   /* ---------- KATALOG DEREKTERI ----------
