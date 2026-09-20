@@ -60,7 +60,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .shot{position:absolute;top:0;left:0;will-change:transform;overflow:hidden;
   filter:saturate(1.06) contrast(1.03)}          /* sal gana "baspa" renk - jyly, teren */
 .shot .lo,.shot .hi{position:absolute;inset:0;background-repeat:no-repeat;background-size:100% 100%}
-.shot .lo{background-image:url("img/room-tiny.webp");filter:blur(14px);transform:scale(1.05)}
+.shot .lo{filter:blur(14px);transform:scale(1.05)}          /* background-image JS-ten (bolmege qarai) */
+/* bolme auysqanda: mazmun qysqa eridi (opacity), sosyn jana bolme */
+.zoom{transition:opacity .32s ease}
+.zoom.swap{opacity:0}
 .shot.hd .lo{display:none}
 .shot .hi{opacity:0;transition:opacity .7s ease}
 .shot .hi.on{opacity:1}
@@ -138,8 +141,8 @@ body.loading{overflow:hidden}
 .sticky.in .pin{animation:pinin .55s cubic-bezier(.2,.9,.3,1.25) both;animation-delay:calc(.5s + var(--i,0) * 80ms)}
 @keyframes pinin{from{opacity:0;scale:.5}to{opacity:1;scale:1}}
 .sticky:not(.in) .edge{visibility:hidden}
-.sticky:not(.in) .mark,.sticky:not(.in) .tel,.sticky:not(.in) .lang,.sticky:not(.in) .hint,.sticky:not(.in) .scrub{opacity:0}
-.top .mark,.top .tel,.top .lang{transition:opacity .5s ease .45s}
+.sticky:not(.in) .mark,.sticky:not(.in) .tel,.sticky:not(.in) .lang,.sticky:not(.in) .rooms,.sticky:not(.in) .hint,.sticky:not(.in) .scrub{opacity:0}
+.top .mark,.top .tel,.top .lang,.rooms{transition:opacity .5s ease .45s}
 @media (prefers-reduced-motion: reduce){
   .zoom{scale:1}.sticky.in .zoom{transition:none}
   .sticky:not(.in) .htext{translate:0 0}
@@ -157,6 +160,17 @@ body.loading{overflow:hidden}
 .tel{font-size:clamp(12px,3.4cqw,14px);font-weight:600;font-variant-numeric:tabular-nums;
   text-shadow:0 2px 16px rgba(0,0,0,.85);padding:12px 0;margin:-12px 0}        /* 45px tuirtu biiktigi */
 /* til auystyrgysh: Apple segmentted control, shyny kapsula */
+/* bolme auystyrgysh: header astynda, sol shyny segmentted control (tek 2+ bolme bolsa korinedi) */
+.rooms{position:absolute;left:50%;top:calc(clamp(13px,4cqw,24px) + 44px + 10px);transform:translateX(-50%);z-index:5;
+  display:inline-flex;padding:3px;border-radius:999px;gap:2px;background:rgba(255,255,255,.14);
+  backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
+  box-shadow:inset 0 0 0 .5px rgba(255,255,255,.28), 0 1px 4px rgba(0,0,0,.2);max-width:calc(100% - 32px)}
+.rooms:empty,.rooms.one{display:none}
+.rooms button{position:relative;padding:6px 13px;min-height:30px;border-radius:999px;font-size:13px;font-weight:600;
+  letter-spacing:-.005em;color:rgba(244,237,228,.9);white-space:nowrap;transition:background .18s,color .18s}
+.rooms button::before{content:"";position:absolute;inset:-7px -3px}
+.rooms button.on{background:rgba(255,255,255,.92);color:#1d1d1f;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.rooms button:focus-visible{outline:2px solid var(--cu);outline-offset:2px}
 .lang{display:inline-flex;padding:3px;border-radius:999px;gap:2px;background:rgba(255,255,255,.14);
   backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3);
   box-shadow:inset 0 0 0 .5px rgba(255,255,255,.28), 0 1px 4px rgba(0,0,0,.2)}
@@ -199,7 +213,7 @@ body.loading{overflow:hidden}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 14px 26px -14px rgba(255,255,255,.40),
              inset 0 -14px 26px -14px rgba(0,0,0,.12), inset 0 -1px 0 rgba(0,0,0,.07)}
 .htext .in .glass .frost{position:absolute;left:0;top:0;transform-origin:0 0;
-  background-repeat:no-repeat;background-size:100% 100%;background-image:url("img/room-glass.webp")}
+  background-repeat:no-repeat;background-size:100% 100%}                     /* background-image JS-ten (bolmege qarai) */
 .htext .in .glass .ring{position:absolute;inset:0;overflow:hidden;border-radius:inherit;
   -webkit-mask-image:linear-gradient(to bottom,#000,transparent 10cqw),linear-gradient(to top,#000,transparent 10cqw),
     linear-gradient(to right,#000,transparent 10cqw),linear-gradient(to left,#000,transparent 10cqw);
@@ -782,6 +796,7 @@ body.sheet-open{overflow:hidden}
     </div>
     <a class="tel" href="tel:+77478399145">+7 747 839 91 45</a>
   </header>
+  <div class="rooms" id="rooms" role="group" aria-label="Бөлме" data-i18n-aria="roomsAria"></div>
 
   <div class="card" id="card" role="dialog" aria-modal="false" aria-labelledby="cNm" aria-hidden="true"></div>
   <div class="hint" id="hint" aria-hidden="true">
@@ -925,7 +940,22 @@ body.sheet-open{overflow:hidden}
 (function(){
   "use strict";
 
-  var IMG = "img/room.webp", IMG_W = 3072, IMG_H = 1365;   /* foto olshemi - geometriya juktelgenshe belgili */
+  /* ---------- BOLMELER ----------
+     Ar bolme: foto (HD, tiny nobai, shyny koshirmesi - make_rooms.py / make_variants.py), olshemi (geometriya
+     juktelgenshe belgili), quad - tabloi ilinetin jazyqtyq (4 burysh, suret ulesi, TL TR BR BL), K - onyn
+     qansha boligi (jogarydan), F - fokus (aynek/qabyrga perspektivasy boiynsha), spots - belgiler (x, y, tauar). */
+  var ROOMS = [
+    {id:"living", nm:{kk:"Қонақ бөлме", ru:"Гостиная"}, img:"img/room.webp", tiny:"img/room-tiny.webp", glass:"img/room-glass.webp", w:3072, h:1365, F:0.545, K:0.52,
+     quad:[[0.13835,0.13919], [0.23958,0.20806], [0.23958,0.74579], [0.13835,0.79560]],
+     spots:[{x:0.094, y:0.840, pid:"armchair", vid:"beige"}, {x:0.490, y:0.635, pid:"sofa", vid:"white"}, {x:0.400, y:0.760, pid:"tables", vid:"oak"},
+            {x:0.631, y:0.605, pid:"dining", vid:"oak"}, {x:0.759, y:0.627, pid:"island", vid:"grey"}]},
+    /* Jatyn bolme - ULGI foto (stock/hero-bed.jpg): qabyrgadagy lepnina paneli = tabloi jazyqtygy (frontal, teta=0) */
+    {id:"bedroom", nm:{kk:"Жатын бөлме", ru:"Спальня"}, img:"img/rooms/bedroom.webp", tiny:"img/rooms/bedroom-tiny.webp", glass:"img/rooms/bedroom-glass.webp", w:1600, h:1000, F:0.545, K:1,
+     quad:[[0.400,0.160], [0.600,0.160], [0.600,0.440], [0.400,0.440]],
+     spots:[{x:0.500, y:0.800, pid:"bed", vid:"grey"}, {x:0.220, y:0.340, pid:"lamp", vid:"white"}, {x:0.640, y:0.660, pid:"bedding", vid:"grey"}]}
+  ];
+  var R = 0;                                               /* agymdagy bolme indeksi */
+  var IMG = ROOMS[0].img, IMG_W = ROOMS[0].w, IMG_H = ROOMS[0].h;
   var WA = "77478399145";      /* brend: Tobylğy */
 
   /* ---------- TIL: kk / ru ----------
@@ -962,7 +992,8 @@ body.sheet-open{overflow:hidden}
       catEyebrow:"Каталог", catH2:"Жиһаз және бағалар", catLede:"Түсі мен өлшемін таңдаңыз — бөліп төлеу сомасы бірден көрінеді.",
       search:"Іздеу", filters:"Сүзгі", filtersH:"Сүзгі және сұрыптау", count:"{n} тауар", empty:"Ештеңе табылмады", clear:"Сүзгіні тазалау",
       moreN:"Тағы {n} тауар", apply:"Көрсету", reset:"Тазалау",
-      catAll:"Барлығы", catSofa:"Дивандар", catArmchair:"Креслолар", catTable:"Үстелдер", catDining:"Асхана", catKitchen:"Ас үй",
+      catAll:"Барлығы", catSofa:"Дивандар", catArmchair:"Креслолар", catTable:"Үстелдер", catDining:"Асхана", catKitchen:"Ас үй", catBedroom:"Жатын", catDecor:"Декор",
+      roomsAria:"Бөлме", roomNote:"Бөлме фотосы — үлгі",
       fPrice:"Баға", fColor:"Түсі", fAvail:"Қолжетімділік", fSort:"Сұрыптау",
       pr1:"500 мыңға дейін", pr2:"500 мың – 1 млн", pr3:"1 млн-нан жоғары",
       colWhite:"Ақ", colBeige:"Беж", colGrey:"Сұр", colBlack:"Қара", colOak:"Емен", colBrown:"Қоңыр", colOlive:"Зәйтүн",
@@ -1007,7 +1038,8 @@ body.sheet-open{overflow:hidden}
       catEyebrow:"Каталог", catH2:"Мебель и цены", catLede:"Выберите цвет и размер — сумма рассрочки видна сразу.",
       search:"Поиск", filters:"Фильтр", filtersH:"Фильтр и сортировка", count:"{n} товаров", empty:"Ничего не найдено", clear:"Сбросить фильтр",
       moreN:"Ещё {n} товаров", apply:"Показать", reset:"Сбросить",
-      catAll:"Все", catSofa:"Диваны", catArmchair:"Кресла", catTable:"Столы", catDining:"Столовая", catKitchen:"Кухня",
+      catAll:"Все", catSofa:"Диваны", catArmchair:"Кресла", catTable:"Столы", catDining:"Столовая", catKitchen:"Кухня", catBedroom:"Спальня", catDecor:"Декор",
+      roomsAria:"Комната", roomNote:"Фото комнаты — образец",
       fPrice:"Цена", fColor:"Цвет", fAvail:"Наличие", fSort:"Сортировка",
       pr1:"до 500 тыс.", pr2:"500 тыс. – 1 млн", pr3:"от 1 млн",
       colWhite:"Белый", colBeige:"Бежевый", colGrey:"Серый", colBlack:"Чёрный", colOak:"Дуб", colBrown:"Коричневый", colOlive:"Оливковый",
@@ -1037,8 +1069,7 @@ body.sheet-open{overflow:hidden}
   /* Banner = aynek #1-din ISHKI kengistigi, PERSPEKTIVADA. Tort burysh (HD 3072x1365):
      TL(425,190) TR(736,284) BR(736,1018) BL(425,1086) - reikadan 4px, jaqtaudan 2px ishke.
      Sol jaq tomengi burysh kreslo ustine (y 1086) qoiyldy - sill (~1100) kreslo artynda. */
-  var QUAD = [[0.13835,0.13919], [0.23958,0.20806], [0.23958,0.74579], [0.13835,0.79560]];
-  var BAN = {x:QUAD[0][0], w:QUAD[1][0] - QUAD[0][0]};
+  var QUAD, BAN, K, QC, QI, QS;                            /* setQuad() toltyrady - bolmege qarai */
 
   /* Gauss: A*x=b (8x8) */
   function solve(A, b){
@@ -1094,11 +1125,14 @@ body.sheet-open{overflow:hidden}
   /* aynektegi tabloi - aynekten sal kishi (burystar ortaga qarai 10% jaqyndatylady)
      jane tek aynektin JOGARGY boliginde ilinedi: tolyq aynek tym uzyn, matin arasy bos qalatyn.
      K - reikadan tomen qansha bolik (aynek biikteginin ulesi) */
-  var K = 0.52;
-  var QC = [0, 0]; QUAD.forEach(function(pt){ QC[0] += pt[0] / 4; QC[1] += pt[1] / 4; });
-  var QI = QUAD.map(function(pt){ return [QC[0] + (pt[0] - QC[0]) * 0.90, QC[1] + (pt[1] - QC[1]) * 0.90]; });
   function lerp(a, b, t){ return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; }
-  var QS = [QI[0], QI[1], lerp(QI[1], QI[2], K), lerp(QI[0], QI[3], K)];
+  function setQuad(q, k){
+    QUAD = q; K = k; BAN = {x:q[0][0], w:q[1][0] - q[0][0]};
+    QC = [0, 0]; q.forEach(function(pt){ QC[0] += pt[0] / 4; QC[1] += pt[1] / 4; });
+    QI = q.map(function(pt){ return [QC[0] + (pt[0] - QC[0]) * 0.90, QC[1] + (pt[1] - QC[1]) * 0.90]; });
+    QS = [QI[0], QI[1], lerp(QI[1], QI[2], K), lerp(QI[0], QI[3], K)];
+  }
+  setQuad(ROOMS[0].quad, ROOMS[0].K);
   var qDisp = [], restQ = [], banW = 0, banH = 0, banX = 0;
   var MORPH = 0.18;   /* ushyp baru uzaqtygy (aynaldyru ulesi); measure() ekranga qarai naqtylaidy */
   function ease(t){ return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
@@ -1110,14 +1144,14 @@ body.sheet-open{overflow:hidden}
      jazyqtygy tek tik osten (Y) burylgan (~70 grad). Sondyqtan tabloi QATTY tikburysh:
      ushqanda sozylmaidy - kamera aldynan aynekke qarai burylyp baryp qonady,
      qongan son reikada (qysqyshtarda) sal terbelip basylady. */
-  var F = 0.545;
+  var FOC = ROOMS[0].F || 0.545;                          /* fokus (FOC - katalog suzgisinin F-imen shatastyrmau ushin) */
   var cam = null;
   var landed = false, swayT0 = 0, swayA = 0.04, lastS = 0, lastT = 0;
   var REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
   function v3(a, b, k){ return [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k]; }
   function projS(P){ return [cam.f * P[0] / P[2] + cam.cx, cam.f * P[1] / P[2] + cam.cy]; }   /* -> shot px */
   function fit3d(){
-    var f = F * dispW, cx = dispW / 2, cy = dispH / 2, q = qDisp;
+    var f = FOC * dispW, cx = dispW / 2, cy = dispH / 2, q = qDisp;
     var hL = q[3][1] - q[0][1], hR = q[2][1] - q[1][1];
     var zL = 1, zR = hL / hR;                                   /* sol jiek jaqyn, on jiek alys */
     var XL = (q[0][0] - cx) / f, XR = (q[1][0] - cx) * zR / f;
@@ -1228,13 +1262,46 @@ body.sheet-open{overflow:hidden}
      variants:[
        {id:"grey", col:{kk:"Сұр мәрмәр", ru:"Серый мрамор"}, hex:"#9A9590", cg:"grey", img:["img/p/island-grey.webp","img/p/island-room.webp","img/p/island-grey-d.webp"], pr:1200000, old:0, stock:"order", badge:""},
        {id:"black", col:{kk:"Қара мәрмәр", ru:"Чёрный мрамор"}, hex:"#2E2C2B", cg:"black", img:["img/p/island-black.webp","img/p/island-room.webp","img/p/island-black-d.webp"], pr:1250000, old:0, stock:"in", badge:"new"}
+     ]},
+    /* Jatyn bolme tauarlary - suretteri bolme fotosynan qiylgan (make_rooms.py), render emes; ULGI */
+    {id:"bed", cat:"bedroom", dim:[180,215,110],
+     nm:{kk:"Кереует Ai", ru:"Кровать Ai"},
+     ds:{kk:"Жұмсақ бас жағы, велюр, көтергіш механизм", ru:"Мягкое изголовье, велюр, подъёмный механизм"},
+     txt:{kk:"Жұмсақ бас жағы бар кереует: тығыз велюр қаптама, тұтас ағаш қаңқа, астында төсек-орынға арналған үлкен қойма (газ лифт). Матрас жинаққа кірмейді, өлшемі 160 × 200 немесе 180 × 200.",
+          ru:"Кровать с мягким изголовьем: плотный велюр, каркас из массива, под основанием — большой короб для белья (газлифт). Матрас в комплект не входит, размер 160 × 200 или 180 × 200."},
+     sp:{kk:[["Материал","Велюр, тұтас ағаш қаңқа"],["Негізі","Ортопедиялық, ағаш ламель"],["Механизм","Көтергіш, газ лифт"],["Жинақта","Кереует, негіз (матрассыз)"],["Кепілдік","24 ай"]],
+         ru:[["Материал","Велюр, каркас из массива"],["Основание","Ортопедическое, ламели"],["Механизм","Подъёмный, газлифт"],["В комплекте","Кровать, основание (без матраса)"],["Гарантия","24 месяца"]]},
+     sizes:[{id:"s160", lbl:{kk:"160 × 200 см", ru:"160 × 200 см"}, dim:[180,215,110], add:0},
+            {id:"s180", lbl:{kk:"180 × 200 см", ru:"180 × 200 см"}, dim:[200,215,110], add:60000}],
+     variants:[
+       {id:"grey", col:{kk:"Сұр велюр", ru:"Серый велюр"}, hex:"#7C7F8A", cg:"grey", img:["img/p/bed-grey.webp","img/p/bed-room.webp","img/p/bed-grey-d.webp"], pr:480000, old:0, stock:"order", badge:"new"}
+     ]},
+    {id:"bedding", cat:"decor", dim:null,
+     nm:{kk:"Төсек жинағы Tun", ru:"Постельное бельё Tun"},
+     ds:{kk:"Сатин, 100% мақта, екі кісілік", ru:"Сатин, 100% хлопок, двуспальное"},
+     txt:{kk:"Тығыз сатиннен тігілген төсек жинағы: жаймасы резеңкелі, көрпе тысы жасырын түймелі, екі жастық тысы. 60 градуста жууға болады, түсі оңбайды.",
+          ru:"Комплект из плотного сатина: простыня на резинке, пододеяльник на потайных пуговицах, две наволочки. Стирка при 60 градусах, цвет не выгорает."},
+     sp:{kk:[["Материал","Сатин, 100% мақта, 120 г/м²"],["Жинақта","Жайма 180 × 200, көрпе тысы 200 × 220, 2 жастық тысы 50 × 70"],["Күтім","60 °C, машинамен"]],
+         ru:[["Материал","Сатин, 100% хлопок, 120 г/м²"],["В комплекте","Простыня 180 × 200, пододеяльник 200 × 220, 2 наволочки 50 × 70"],["Уход","60 °C, машинная стирка"]]},
+     variants:[
+       {id:"grey", col:{kk:"Көгілдір сұр", ru:"Дымчато-серый"}, hex:"#8A8C99", cg:"grey", img:["img/p/bedding-grey.webp","img/p/bedding-room.webp","img/p/bedding-grey-d.webp"], pr:32000, old:0, stock:"in", badge:""}
+     ]},
+    {id:"lamp", cat:"decor", dim:[30,30,45],
+     nm:{kk:"Аспалы шам Ay", ru:"Подвесной светильник Ay"},
+     ds:{kk:"Күңгірт шыны шар, жез ілгіш", ru:"Матовый стеклянный шар, латунный подвес"},
+     txt:{kk:"Кереует жанына немесе асхана үстелінің үстіне ілінетін шам: күңгірт ақ шыны шар, жез түсті ілгіш, ұзындығы реттеледі (60–180 см). E27 патрон, LED шамы жинаққа кіреді.",
+          ru:"Светильник для прикроватной зоны или над обеденным столом: матовый белый стеклянный шар, подвес латунного цвета, длина регулируется (60–180 см). Патрон E27, LED-лампа в комплекте."},
+     sp:{kk:[["Материал","Күңгірт шыны, металл"],["Өлшемі","Шар Ø 30 см, ілгіш 60–180 см"],["Патрон","E27, LED 9 Вт жинақта"],["Кепілдік","12 ай"]],
+         ru:[["Материал","Матовое стекло, металл"],["Размер","Шар Ø 30 см, подвес 60–180 см"],["Патрон","E27, LED 9 Вт в комплекте"],["Гарантия","12 месяцев"]]},
+     variants:[
+       {id:"white", col:{kk:"Ақ шар · жез", ru:"Белый шар · латунь"}, hex:"#F2EFE6", cg:"white", img:["img/p/lamp-white.webp","img/p/lamp-room.webp","img/p/lamp-white-d.webp"], pr:45000, old:0, stock:"in", badge:""}
      ]}
   ];
-  var CATS = ["sofa", "armchair", "table", "dining", "kitchen"];
-  var CAT_KEY = {sofa:"catSofa", armchair:"catArmchair", table:"catTable", dining:"catDining", kitchen:"catKitchen"};
+  var CATS = ["sofa", "armchair", "table", "dining", "kitchen", "bedroom", "decor"];
+  var CAT_KEY = {sofa:"catSofa", armchair:"catArmchair", table:"catTable", dining:"catDining", kitchen:"catKitchen", bedroom:"catBedroom", decor:"catDecor"};
   var COLS = {white:"#EFEAE2", beige:"#C9B39A", grey:"#8E8E93", black:"#2E2C2B", oak:"#C8A57A", brown:"#6E4A2E", olive:"#9AA687"};
   var COL_KEY = {white:"colWhite", beige:"colBeige", grey:"colGrey", black:"colBlack", oak:"colOak", brown:"colBrown", olive:"colOlive"};
-  var RELATED = {sofa:["tables","armchair"], tables:["sofa","armchair"], armchair:["sofa","tables"], dining:["island"], island:["dining"]};
+  var RELATED = {sofa:["tables","armchair"], tables:["sofa","armchair"], armchair:["sofa","tables"], dining:["island"], island:["dining"], bed:["bedding","lamp"], bedding:["bed"], lamp:["bed","bedding"]};
 
   /* Pikirler - ULGI (naqty adamdar emes). Nagyz saitta dukennin 2GIS pikirleri qoiylady. */
   var REVIEWS = [
@@ -1273,14 +1340,13 @@ body.sheet-open{overflow:hidden}
   function oldOf(p, v, sz){ return v.old ? v.old + (sz ? sz.add : 0) : 0; }
 
   /* Hero-dagy belgiler: suret ulesi + qai tauar/variant */
-  var SPOTS = [
-    {x:0.094, y:0.840, pid:"armchair", vid:"beige"},
-    {x:0.490, y:0.635, pid:"sofa", vid:"white"},
-    {x:0.400, y:0.760, pid:"tables", vid:"oak"},
-    {x:0.631, y:0.605, pid:"dining", vid:"oak"},
-    {x:0.759, y:0.627, pid:"island", vid:"grey"}
-  ];
+  var SPOTS = ROOMS[0].spots;
   function spotItem(i){ var p = prod(SPOTS[i].pid); return {p:p, v:variant(p, SPOTS[i].vid), sz:sizeOf(p, null)}; }
+  /* tauar qai bolmede, qai belgide: {room, idx} nemese null */
+  function findSpot(pid){
+    for (var r = 0; r < ROOMS.length; r++) for (var i = 0; i < ROOMS[r].spots.length; i++) if (ROOMS[r].spots[i].pid === pid) return {room:r, idx:i};
+    return null;
+  }
 
 
   /* WhatsApp: daiyn hat. Kartochkadan bassa - qai tauardan kirgeni jazylyp turady,
@@ -1361,22 +1427,35 @@ body.sheet-open{overflow:hidden}
     });
   }
 
-  var els = SPOTS.map(function(s, i){
-    var b = document.createElement("button"), it = spotItem(i);
-    b.type = "button";
-    /* on jaqta turgan zattyn jazuy solga qaraidy - kadrdan shygyp ketpesin */
-    b.className = "pin";
-    b.setAttribute("aria-label", L(it.p.nm) + ", " + fmtT(priceOf(it.p, it.v, it.sz)));
-    b.innerHTML = '<i class="dot"></i><span class="lab">' + esc(fmtT(priceOf(it.p, it.v, it.sz))) + '</span>';
-    b.style.setProperty("--i", i);                       /* sozbede kezekpen shygu */
-    b.addEventListener("click", function(e){ e.stopPropagation(); showCard(i); });
-    zoom.appendChild(b);
-    return b;
-  });
-
-  var marks = SPOTS.map(function(s){                      /* orын jolagyndagy zat nukteleri */
-    var m = document.createElement("b"); m.style.left = (100 * s.x).toFixed(2) + "%"; scrub.appendChild(m); return m;
-  });
+  var els = [], marks = [];
+  function buildPins(){
+    els.forEach(function(e){ e.remove(); });
+    els = SPOTS.map(function(s, i){
+      var b = document.createElement("button"), it = spotItem(i);
+      b.type = "button";
+      /* on jaqta turgan zattyn jazuy solga qaraidy - kadrdan shygyp ketpesin */
+      b.className = "pin";
+      b.setAttribute("aria-label", L(it.p.nm) + ", " + fmtT(priceOf(it.p, it.v, it.sz)));
+      b.innerHTML = '<i class="dot"></i><span class="lab">' + esc(fmtT(priceOf(it.p, it.v, it.sz))) + '</span>';
+      b.style.setProperty("--i", i);                       /* sozbede kezekpen shygu */
+      b.addEventListener("click", function(e){ e.stopPropagation(); showCard(i); });
+      zoom.appendChild(b);
+      return b;
+    });
+    marks.forEach(function(m){ m.remove(); });
+    marks = SPOTS.map(function(s){                        /* oryn jolagyndagy zat nukteleri */
+      var m = document.createElement("b"); m.style.left = (100 * s.x).toFixed(2) + "%"; scrub.appendChild(m); return m;
+    });
+  }
+  buildPins();
+  var lo = shot.querySelector(".lo");
+  function setRoomImages(room, hdUrl){
+    lo.style.backgroundImage = 'url("' + room.tiny + '")';
+    frost.style.backgroundImage = 'url("' + room.glass + '")';
+    lens.style.backgroundImage = 'url("' + room.glass + '")';
+    if (hdUrl) hi.style.backgroundImage = 'url("' + hdUrl + '")';
+  }
+  setRoomImages(ROOMS[0], null);
   next.addEventListener("click", function(e){
     e.preventDefault(); e.stopPropagation();
     document.getElementById("price").scrollIntoView({behavior:"smooth", block:"start"});
@@ -1661,6 +1740,9 @@ body.sheet-open{overflow:hidden}
     cx -= off0; cy += dy;
     restK = fw >= 1024 ? 1.45 : 1.12;                      /* kompyuterde jazyq karta ulkenirek - taqyryp oqylsyn */
     var aw = banW * restK, ah = banH * restK;
+    /* karta header men bolme auystyrgyshtyn astyna, ishara/jolaqtyn ustine tuspesin (jatyn bolmede panel biik) */
+    var topPad = (ROOMS.length > 1 ? 122 : 78), botPad = 100;
+    cy = Math.max(topPad + ah / 2, Math.min(fh - botPad - ah / 2, cy));
     restQ = [[cx - aw / 2, cy - ah / 2], [cx + aw / 2, cy - ah / 2], [cx + aw / 2, cy + ah / 2], [cx - aw / 2, cy + ah / 2]];
 
     /* ushyp baru aynek 90px jyljygansha bitsin - tar ekranda aynek tez ketedi,
@@ -1997,12 +2079,12 @@ body.sheet-open{overflow:hidden}
       '<div class="sopt"><div class="sk">' + esc(T("color")) + ': <b>' + esc(L(v.col)) + '</b></div><div class="swatches" id="swatches">' + sw + '</div></div>' +
       (sizes ? '<div class="sopt"><div class="sk">' + esc(T("size")) + '</div><div class="sizes" id="sizes">' + sizes + '</div></div>' : '') +
       (L(p.txt) ? '<p class="stxt">' + esc(L(p.txt)) + '</p>' : '') +
-      '<div class="sdim"><div class="dk">' + esc(T("dims")) + '</div>' + dimSvg(dim[0], dim[1], dim[2]) + '</div>' +
+      (dim ? '<div class="sdim"><div class="dk">' + esc(T("dims")) + '</div>' + dimSvg(dim[0], dim[1], dim[2]) + '</div>' : '') +
       (rows ? '<dl class="specs">' + rows + '</dl>' : '') +
       (rel ? '<div class="srel"><div class="sk">' + esc(T("related")) + '</div><div class="srow">' + rel + '</div></div>' : '') +
       '<div class="sbtns">' +
         '<a class="btn btn-p" target="_blank" rel="noopener" href="' + waLink(it) + '">' + WA_ICON + esc(T("contact")) + '</a>' +
-        (p.spot >= 0 ? '<button class="btn btn-s" type="button" id="shRoom">' + esc(T("inRoom")) + '</button>' : '') +
+        (findSpot(p.id) ? '<button class="btn btn-s" type="button" id="shRoom">' + esc(T("inRoom")) + '</button>' : '') +
       '</div>' +
       '<div class="snote">' + esc(T("note")) + '</div>';
     /* galereya */
@@ -2026,12 +2108,64 @@ body.sheet-open{overflow:hidden}
     });
     bindFav(sheetC.querySelector(".gal .fav"), it);
     var rb = document.getElementById("shRoom");
-    if (rb) rb.addEventListener("click", function(){ sh.close(); setTimeout(function(){ goSpot(p.spot); }, 380); });
+    if (rb) rb.addEventListener("click", function(){ sh.close(); setTimeout(function(){ showInRoom(p.id); }, 380); });
   }
   function openSheet(pid, vid){
     fillSheet(pid, vid, null);
     sheetC.scrollTop = 0;
     sh.open();
+  }
+
+  /* ---------- BOLME AUYSTYRU ---------- */
+  var roomsEl = document.getElementById("rooms"), swapping = false;
+  function renderRooms(){
+    roomsEl.innerHTML = "";
+    roomsEl.classList.toggle("one", ROOMS.length < 2);
+    ROOMS.forEach(function(rm, i){
+      var b = document.createElement("button"); b.type = "button"; b.textContent = L(rm.nm);
+      b.className = i === R ? "on" : ""; b.setAttribute("aria-pressed", i === R);
+      b.addEventListener("click", function(e){ e.stopPropagation(); switchRoom(i); });
+      roomsEl.appendChild(b);
+    });
+  }
+  function switchRoom(i, then){
+    if (i === R || swapping || !ROOMS[i]) return;
+    swapping = true;
+    if (openIdx >= 0) hideCard(false);
+    cancelAnimationFrame(flickRaf);
+    zoom.classList.add("swap");
+    setTimeout(function(){
+      var rm = ROOMS[i]; R = i;
+      IMG = rm.img; imgW = rm.w; imgH = rm.h; FOC = rm.F || 0.545;
+      setQuad(rm.quad, rm.K);
+      SPOTS = rm.spots;
+      buildPins();
+      landed = false; lastS = 0; lastT = 0;
+      shot.classList.remove("hd"); hi.classList.remove("on");
+      setRoomImages(rm, null);
+      scrollTo(0, hero.offsetTop);
+      draw();
+      renderRooms();
+      document.getElementById("hintT").textContent = T("hint").replace("{n}", SPOTS.length);
+      var im = new Image();
+      im.onload = function(){
+        if (R !== i) return;
+        imgW = im.naturalWidth; imgH = im.naturalHeight;
+        setRoomImages(rm, rm.img); hi.classList.add("on"); draw();
+        setTimeout(function(){ if (R === i) shot.classList.add("hd"); }, 900);
+      };
+      im.src = rm.img;
+      zoom.classList.remove("swap");
+      /* pin-derdin kiru animaciyasy qaita oinasyn */
+      sticky.classList.remove("in"); void sticky.offsetWidth; sticky.classList.add("in");
+      setTimeout(function(){ swapping = false; if (then) then(); }, 350);
+    }, 330);
+  }
+  /* tauardy oz bolmesinde korsetu: kerek bolsa bolmeni auystyrady, sosyn belgige barady */
+  function showInRoom(pid){
+    var f = findSpot(pid); if (!f) return;
+    if (f.room === R) goSpot(f.idx);
+    else switchRoom(f.room, function(){ goSpot(f.idx); });
   }
 
   /* ---------- TANDAULYLAR: localStorage tizimi, bir hatpen surau ---------- */
@@ -2148,7 +2282,7 @@ body.sheet-open{overflow:hidden}
     waAll.forEach(function(a){ a.href = waLink(null); });
     renderCatalog();
     renderSvc();
-    renderReviews(); renderFaq(); renderOpenNow(); renderFavCount();
+    renderReviews(); renderFaq(); renderOpenNow(); renderFavCount(); renderRooms();
     if (lsh.on) renderFavSheet();
     if (openIdx >= 0) showCard(openIdx, true);
     if (sh.on && shCur) fillSheet(shCur.pid, shCur.vid, shCur.sid);
