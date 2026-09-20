@@ -510,6 +510,27 @@ body.loading{overflow:hidden}
 .badge.hit{background:#D8802A;color:#1A120A}
 .badge.new{background:#1d1d1f}
 .badge.sale{background:#c0392b}
+/* BOLME JINAGY: bir kartada bolmenin bar tauary, jinaq bagasy (-%), bir tuimemen tizimge / bir hatpen surau */
+.bundle{display:grid;grid-template-columns:1fr;gap:14px;margin-top:clamp(20px,3.5vw,30px);background:#fff;border-radius:20px;padding:16px;
+  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)}
+.bundle .bthumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.bundle .bthumbs img{width:100%;height:auto;aspect-ratio:4 / 3;object-fit:contain;background:#f5f5f7;border-radius:10px;display:block}
+.bundle .bk{font-size:13px;font-weight:600;color:#B05A16}
+.bundle h3{margin:4px 0 2px;font-family:var(--f-display);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.bundle .bds{font-size:14px;color:#6e6e73;line-height:1.45}
+.bundle .bp{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin-top:10px}
+.bundle .bp b{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.bundle .bp s{font-size:14px;color:#8e8e93;font-variant-numeric:tabular-nums}
+.bundle .bp .off{font-size:12.5px;font-weight:600;color:#fff;background:#c0392b;border-radius:999px;padding:2px 8px}
+.bundle .bm{font-size:13px;color:#6e6e73;margin-top:2px;font-variant-numeric:tabular-nums}
+.bundle .bbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.bundle .bbtns .btn{flex:1 1 auto;white-space:nowrap;justify-content:center;height:44px;padding:0 16px;font-size:14.5px;font-weight:600;border-radius:999px;border:0;gap:8px}
+.bundle .bbtns .btn-p{background:linear-gradient(180deg,#E8963C,#D8802A);color:#1A120A;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45), inset 0 -1px 0 rgba(0,0,0,.10), 0 2px 8px rgba(216,128,42,.28)}
+.bundle .bbtns .btn-s{background:#fff;color:#1d1d1f;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.bundle .bbtns .btn-s.done{color:#1f7a3a;box-shadow:0 0 0 1px rgba(31,122,58,.35)}
+.bundle .bbtns .btn svg{width:16px;height:16px;fill:currentColor;flex:none}
+@media (min-width:720px){ .bundle{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:22px;padding:20px;align-items:center} .bundle .bthumbs{grid-template-columns:repeat(3,1fr);gap:8px} }
 .cempty{margin-top:24px;padding:36px 20px;text-align:center;background:#fff;border-radius:18px;color:#6e6e73;font-size:15px}
 .cempty button{display:inline-block;margin-top:10px;color:#B05A16;font-weight:600;font-size:14.5px}
 .cmore{display:flex;justify-content:center;margin-top:18px}
@@ -686,6 +707,25 @@ body.loading{overflow:hidden}
 .sdim{margin-top:16px;background:#fff;border-radius:16px;padding:14px 16px 10px}
 .sdim svg{width:100%;height:auto;max-height:170px;display:block}
 .sdim .dk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:4px}
+/* "Syia ma?" - bos oryn olshemi -> syiady/syimaidy, plan (ustinen qarau), otu joly */
+.fit{margin-top:12px;background:#fff;border-radius:16px;padding:14px 16px}
+.fit .dk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
+.fit .frow2{display:flex;gap:8px}
+.fit label{flex:1;display:flex;align-items:center;gap:6px;height:42px;padding:0 12px;border-radius:12px;background:#f5f5f7;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.fit label span{font-size:12px;color:#6e6e73;white-space:nowrap}
+.fit label input{flex:1;min-width:0;width:100%;border:0;background:none;font:inherit;font-size:16px;font-weight:600;color:#1d1d1f;text-align:right;outline:none;-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.fit label input::-webkit-outer-spin-button,.fit label input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.fit label i{font-style:normal;font-size:12px;color:#6e6e73}
+.fit label:focus-within{box-shadow:inset 0 0 0 2px #B05A16}
+.fit .fplan{margin-top:10px}
+.fit .fplan svg{display:block;width:100%;height:auto;max-height:150px}
+.fit .fres{margin-top:8px;font-size:14px;line-height:1.45;color:#3E3731}
+.fit .fres b{display:flex;align-items:center;gap:7px;color:#1d1d1f;font-weight:600}
+.fit .fres b::before{content:"";width:8px;height:8px;border-radius:50%;background:#34c759;flex:none}
+.fit .fres.no b::before{background:#c0392b}
+.fit .fres .alt{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;font-weight:600;color:#B05A16;padding:0;background:none}
+.fit .fres .alt::after{content:"\203A"}
+.fit .fhint{margin-top:6px;font-size:12.5px;color:#6e6e73}
 .srel{margin-top:18px}
 .srel .sk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
 .srow{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:2px 20px 4px}
@@ -764,6 +804,22 @@ body.sheet-open{overflow:hidden}
 .svc .flang button{font-size:12.5px;color:var(--dim);padding:8px 2px;min-height:36px}
 .svc .flang button.on{color:var(--tx);font-weight:600}
 .svc .flang button:focus-visible{outline:2px solid var(--cu);outline-offset:2px;border-radius:4px}
+/* ---------- VIEW TRANSITIONS (Safari 18+/Chrome 111+): paraq ashylu/jabylu, katalog tory, til - jergilikti, kitapkhanasyz ----------
+   Suret morfy: karta suretine jane galereyanyn birinshi suretine bir at (vt-pimg) uaqytsha beriledi.
+   Katalog kartalary - ar kartaga oz aty (pc-<kilt>) - suzgide kartalar jana ornyna "jylzhidy". */
+::view-transition-old(root),::view-transition-new(root){animation-duration:.26s}
+.sheet.on .sp{view-transition-name:sheet}
+::view-transition-old(sheet),::view-transition-new(sheet){animation-duration:.36s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-new(sheet):only-child{animation-name:vt-up}
+::view-transition-old(sheet):only-child{animation-name:vt-down}
+@keyframes vt-up{from{transform:translateY(40px);opacity:0}}
+@keyframes vt-down{to{transform:translateY(40px);opacity:0}}
+::view-transition-group(vt-pimg){animation-duration:.42s;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+::view-transition-old(vt-pimg){animation:none;opacity:0}
+::view-transition-new(vt-pimg){animation:none}
+html.vt .sheet .sp,html.vt .sheet .sbg{transition:none}               /* VT juris turganda CSS transition qosylmasyn */
+html.vt .sticky,html.vt .hero{view-transition-name:none}
+@media (prefers-reduced-motion: reduce){ ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important} }
 </style>
 
 <div class="intro" id="intro" aria-hidden="true">
@@ -828,6 +884,7 @@ body.sheet-open{overflow:hidden}
       <h2 data-i18n="catH2">Жиһаз және бағалар</h2>
       <p class="lede" data-i18n="catLede">Түсі мен өлшемін таңдаңыз — бөліп төлеу сомасы бірден көрінеді.</p>
     </div>
+    <div class="bundle" id="bundle"></div>
     <div class="ctool">
       <label class="csearch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="cq" type="search" autocomplete="off" placeholder="Іздеу" data-i18n-ph="search" aria-label="Іздеу" data-i18n-aria="search"></label>
       <button class="cfbtn" type="button" id="cfBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg><span data-i18n="filters">Сүзгі</span><b id="cfN">0</b></button>
@@ -1025,6 +1082,12 @@ body.sheet-open{overflow:hidden}
       kaspiT:"Kaspi Магазинде де бар", kaspiD:"Бөліп төлеу және жеткізу Kaspi арқылы",
       mapOpen:"2GIS-те ашу", mapRoute:"Бағыт алу", mapNote:"Карта — үлгі. Нағыз сайтта дүкеннің 2GIS нүктесі қойылады",
       nowK:"Қазір", openNow:"Ашық · {t}-ге дейін", closedNow:"Жабық · {t}-де ашылады",
+      fitH:"Сыя ма?", fitW:"Бос орын, ені", fitD:"тереңдігі", fitYes:"Сыяды · {x} см артық қалады", fitNo:"Сыймайды · {x} см жетпейді",
+      fitNeed:"Өту жолымен {w} × {d} см орын керек", fitAlt:"Кішісін қараңыз: {s}", fitEmpty:"Бос орынның өлшемін жазыңыз — сыятынын көрсетеміз",
+      fitRoom:"бөлме", fitWalk:"өту жолы",
+      bundleK:"Жинақ · {n} тауар", bundleDs:"Суреттегі бөлменің бәрі — бір тапсырыспен, жинақ жеңілдігімен", bundleSep:"Бөлек", bundleAdd:"Тізімге қосу",
+      bundleAdded:"Тізімде", bundleAsk:"Бір хатпен сұрау", favBundle:"Жинақ жеңілдігі",
+      waBundle:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын.\nЖинақ: {nm} ({n} тауар)\n{list}\nЖинақ бағасы: {total} (бөлек {sep}, −{off}%)\n0-0-12: {month} / ай\nҚолжетімділігі мен жеткізуін айтып жіберіңізші.",
       svcEyebrow:"Tobylğy · қызметтер", svcH2:"Сіздің бизнесіңізге де осындай сайт",
       svcLede:"Бұл бет — Tobylğy жұмысының үлгісі. Кез келген бизнеске арзан, жылдам, телефонға бейімделген беттер жасаймын: бағасы суретте тұрған дүкен, каталог, WhatsApp-қа дайын хат.",
       svcNote:"Бағалар — бастапқы, нақты сома жұмыс көлеміне қарай. Кездесуге өзім келемін.",
@@ -1071,6 +1134,12 @@ body.sheet-open{overflow:hidden}
       kaspiT:"Есть и в Kaspi Магазине", kaspiD:"Рассрочка и доставка через Kaspi",
       mapOpen:"Открыть в 2GIS", mapRoute:"Построить маршрут", mapNote:"Карта — образец. На реальном сайте ставится точка магазина из 2GIS",
       nowK:"Сейчас", openNow:"Открыто · до {t}", closedNow:"Закрыто · откроется в {t}",
+      fitH:"Поместится?", fitW:"Свободное место, ширина", fitD:"глубина", fitYes:"Поместится · запас {x} см", fitNo:"Не поместится · не хватает {x} см",
+      fitNeed:"С проходом нужно {w} × {d} см", fitAlt:"Посмотрите меньший: {s}", fitEmpty:"Введите размер свободного места — покажем, поместится ли",
+      fitRoom:"комната", fitWalk:"проход",
+      bundleK:"Комплект · {n} товаров", bundleDs:"Вся комната с фото — одним заказом, со скидкой за комплект", bundleSep:"По отдельности", bundleAdd:"В список",
+      bundleAdded:"В списке", bundleAsk:"Спросить одним письмом", favBundle:"Скидка за комплект",
+      waBundle:"Здравствуйте! Пишу с сайта Tobylğy.\nКомплект: {nm} ({n} товаров)\n{list}\nЦена комплекта: {total} (по отдельности {sep}, −{off}%)\n0-0-12: {month} / мес\nПодскажите, пожалуйста, наличие и доставку.",
       svcEyebrow:"Tobylğy · услуги", svcH2:"Такой же сайт для вашего бизнеса",
       svcLede:"Эта страница — образец работы Tobylğy. Делаю недорогие, быстрые, мобильные страницы для любого бизнеса: магазин с ценами на фото, каталог, готовое письмо в WhatsApp.",
       svcNote:"Цены стартовые, точная сумма зависит от объёма. На встречу приезжаю сам.",
@@ -1322,6 +1391,13 @@ body.sheet-open{overflow:hidden}
   var COLS = {white:"#EFEAE2", beige:"#C9B39A", grey:"#8E8E93", black:"#2E2C2B", oak:"#C8A57A", brown:"#6E4A2E", olive:"#9AA687"};
   var COL_KEY = {white:"colWhite", beige:"colBeige", grey:"colGrey", black:"colBlack", oak:"colOak", brown:"colBrown", olive:"colOlive"};
   var RELATED = {sofa:["tables","armchair"], tables:["sofa","armchair"], armchair:["sofa","tables"], dining:["island"], island:["dining"], bed:["bedding","lamp"], bedding:["bed"], lamp:["bed","bedding"]};
+  /* Otu joly (sm): [jan, aldy/arty]; free - erkin turady (eki jagynan da), aitpese qabyrgaga tirelip turady (tek aldynan) */
+  var CLEAR = {sofa:[30,60,false], armchair:[20,50,false], table:[0,45,false], dining:[75,75,true], kitchen:[100,100,true], bedroom:[60,60,false], decor:[0,0,false]};
+  /* Jinaqtar: bolmenin bar tauary bir tapsyryspen, jenildik off (%) - ULGI */
+  var BUNDLES = [
+    {id:"living", room:"living", off:7, nm:{kk:"Қонақ бөлме толығымен", ru:"Гостиная целиком"},
+     items:[{pid:"sofa", vid:"white", sid:"corner"}, {pid:"armchair", vid:"beige"}, {pid:"tables", vid:"oak"}, {pid:"dining", vid:"oak", sid:"s6"}, {pid:"island", vid:"grey", sid:"s3"}]}
+  ];
 
   /* Pikirler - ULGI (naqty adamdar emes). Nagyz saitta dukennin 2GIS pikirleri qoiylady. */
   var REVIEWS = [
@@ -1560,8 +1636,14 @@ body.sheet-open{overflow:hidden}
       b.addEventListener("click", function(){ F.cat = b.getAttribute("data-cat"); F.shown = 8; renderCatalog(); });
     });
   }
+  var catFirst = true;
   function renderCatalog(){
+    if (catFirst || sh.on || fsh.on || lsh.on || !document.startViewTransition || REDUCE_VT){ catFirst = false; renderCatalogNow(); return; }
+    withVT(renderCatalogNow);
+  }
+  function renderCatalogNow(){
     renderChips();
+    renderBundle();
     var items = sorted(allItems().filter(matches));
     ccount.textContent = T("count").replace("{n}", items.length);
     /* belsendi suzgiler - alynatyn chipter */
@@ -1582,8 +1664,9 @@ body.sheet-open{overflow:hidden}
     cgrid.innerHTML = "";
     items.slice(0, F.shown).forEach(function(it){
       var a = document.createElement("article"); a.className = "pc";
+      a.style.viewTransitionName = "pc-" + favKey(it).replace(/[^a-z0-9]+/gi, "-");   /* suzgide kartalar jana ornyna jyljidy */
       a.innerHTML = '<button type="button" class="pbtn" aria-label="' + esc(L(it.p.nm) + ", " + L(it.v.col) + ", " + fmtT(priceOf(it.p, it.v, it.sz))) + '">' + cardHtml(it) + '</button>' + favBtn(it);
-      a.querySelector(".pbtn").addEventListener("click", function(){ openSheet(it.p.id, it.v.id); });
+      a.querySelector(".pbtn").addEventListener("click", function(){ openSheet(it.p.id, it.v.id, a.querySelector(".pimg")); });
       bindFav(a.querySelector(".fav"), it);
       cgrid.appendChild(a);
     });
@@ -2018,23 +2101,48 @@ body.sheet-open{overflow:hidden}
   draw();
 
   /* ---------- paraqtar (sheet): tauar jane suzgi - bir kontroller ---------- */
+  /* ---------- View Transitions: bar bolsa - jergilikti animaciya, joq bolsa (eski brauzer / reduce-motion) - birden ---------- */
+  var REDUCE_VT = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function withVT(update){
+    if (!document.startViewTransition || REDUCE_VT){ update(); return Promise.resolve(); }
+    document.documentElement.classList.add("vt");
+    var t = document.startViewTransition(update);
+    return t.finished.catch(function(){}).then(function(){ document.documentElement.classList.remove("vt"); });
+  }
   var openSheets = [];
   function mkSheet(id){
     var el = document.getElementById(id), panel = document.getElementById(id + "P"), x = document.getElementById(id + "X"), bg = document.getElementById(id + "Bg");
     var o = {el:el, on:false, last:null, timer:0};
-    o.open = function(){
+    /* prep - VT ishinde (jana kui) oryndalatyn qosymsha jumys (mysaly, paraqty toltyru) */
+    o.open = function(prep){
       clearTimeout(o.timer);
       if (!o.on){ o.last = document.activeElement; openSheets.push(o); }
       o.on = true;
+      if (document.startViewTransition && !REDUCE_VT){
+        withVT(function(){
+          if (prep) prep();
+          el.classList.add("on", "in"); el.setAttribute("aria-hidden", "false");
+          document.body.classList.add("sheet-open");
+        }).then(function(){ panel.focus({preventScroll:true}); });
+        return;
+      }
+      if (prep) prep();
       el.classList.add("on"); el.setAttribute("aria-hidden", "false");
       document.body.classList.add("sheet-open");
       setTimeout(function(){ el.classList.add("in"); panel.focus({preventScroll:true}); }, 20);
     };
-    o.close = function(){
+    o.close = function(prep){
       if (!o.on) return;
       o.on = false; openSheets = openSheets.filter(function(x){ return x !== o; });
-      el.classList.remove("in");
       if (!openSheets.length) document.body.classList.remove("sheet-open");
+      if (document.startViewTransition && !REDUCE_VT){
+        withVT(function(){
+          if (prep) prep();
+          el.classList.remove("in", "on"); el.setAttribute("aria-hidden", "true");
+        }).then(function(){ if (o.last && o.last.focus) o.last.focus({preventScroll:true}); });
+        return;
+      }
+      el.classList.remove("in");
       o.timer = setTimeout(function(){
         el.classList.remove("on"); el.setAttribute("aria-hidden", "true");
         if (o.last && o.last.focus) o.last.focus({preventScroll:true});
@@ -2054,7 +2162,52 @@ body.sheet-open{overflow:hidden}
   var sheetC = document.getElementById("sheetC");
   var shCur = null;                                           /* {pid, vid, sid} - ashyq tauar */
   function sheetOnAny(){ return openSheets.length > 0; }
-  function closeTop(){ if (openSheets.length) openSheets[openSheets.length - 1].close(); }
+  function closeTop(){ if (!openSheets.length) return; var top = openSheets[openSheets.length - 1]; if (top === sh) closeSheetVT(); else top.close(); }
+
+  /* ---------- "Syia ma?" kalkulyatory ----------
+     Bos oryn (eni x terendigi) -> tauar + otu joly syiady ma. Plan: ustinen qarau, tauar qabyrgaga tirelip
+     (nemese erkin) turady, otu joly - uzik syzyq. Bolme olshemi localStorage-de - basqa tauarda da qalady. */
+  var ROOMSZ = (function(){ try { var o = JSON.parse(localStorage.getItem("tobylgyRoom") || "{}"); return {w:+o.w || 0, d:+o.d || 0}; } catch (_) { return {w:0, d:0}; } })();
+  function needOf(p, dim){
+    var c = CLEAR[p.cat] || [0, 0, false];
+    return {w:dim[0] + 2 * c[0], d:dim[1] + (c[2] ? 2 : 1) * c[1], side:c[0], fb:c[1], free:c[2]};
+  }
+  function renderFit(p, v, sz){
+    var el = document.getElementById("fres"), pl = document.getElementById("fplan"); if (!el) return;
+    var dim = sz ? sz.dim : p.dim, need = needOf(p, dim), W = ROOMSZ.w, D = ROOMSZ.d;
+    var html = "", cls = "";
+    if (!(W > 0 && D > 0)){
+      html = esc(T("fitEmpty")) + '<div class="fhint">' + esc(T("fitNeed").replace("{w}", need.w).replace("{d}", need.d)) + '</div>';
+      pl.innerHTML = "";
+    } else {
+      var dw = W - need.w, dd = D - need.d, ok = dw >= 0 && dd >= 0;
+      cls = ok ? "" : "no";
+      var lack = ok ? Math.min(dw, dd) : Math.max(-Math.min(dw, 0), -Math.min(dd, 0));
+      html = '<b>' + esc(T(ok ? "fitYes" : "fitNo").replace("{x}", lack)) + '</b>' +
+             '<div class="fhint">' + esc(T("fitNeed").replace("{w}", need.w).replace("{d}", need.d)) + '</div>';
+      if (!ok && p.sizes){                                       /* kishi olshem syia ma? */
+        for (var i = 0; i < p.sizes.length; i++){
+          var n2 = needOf(p, p.sizes[i].dim);
+          if (p.sizes[i] !== sz && n2.w <= W && n2.d <= D){ html += '<button type="button" class="alt" data-s="' + p.sizes[i].id + '">' + esc(T("fitAlt").replace("{s}", L(p.sizes[i].lbl))) + '</button>'; break; }
+        }
+      }
+      /* plan: bolme (aq), otu joly (uzik), tauar (mys). Masshtab - bolme men kerek oryn ishinde ulkeni */
+      var pw = Math.max(W, need.w), pd = Math.max(D, need.d), k = 300 / pw, ph = pd * k;
+      var ix = (W - need.w) / 2 * k + need.side * k, iy = need.free ? (D - need.d) / 2 * k + need.fb * k : (D - dim[1]) * k;
+      if (ix < 0) ix = need.side * k; if (iy < 0) iy = need.free ? need.fb * k : 0;
+      var P = function(n){ return n.toFixed(1); };
+      pl.innerHTML = '<svg viewBox="-2 -2 304 ' + P(ph + 4) + '" aria-hidden="true">' +
+        '<rect x="0" y="0" width="' + P(W * k) + '" height="' + P(D * k) + '" fill="#fff" stroke="#1d1d1f" stroke-width="1.4"/>' +
+        '<rect x="' + P(ix - need.side * k) + '" y="' + P(iy - (need.free ? need.fb * k : 0)) + '" width="' + P(need.w * k) + '" height="' + P(need.d * k) + '" fill="none" stroke="' + (ok ? '#8e8e93' : '#c0392b') + '" stroke-width="1" stroke-dasharray="4 3"/>' +
+        '<rect x="' + P(ix) + '" y="' + P(iy) + '" width="' + P(dim[0] * k) + '" height="' + P(dim[1] * k) + '" rx="3" fill="' + (ok ? 'rgba(216,128,42,.28)' : 'rgba(192,57,43,.22)') + '" stroke="' + (ok ? '#D8802A' : '#c0392b') + '" stroke-width="1.4"/>' +
+        '<text x="' + P(W * k / 2) + '" y="-4" font-size="10" text-anchor="middle" fill="#6e6e73">' + W + ' \u0441\u043c \u00b7 ' + esc(T("fitRoom")) + '</text>' +
+        '<text x="' + P(ix + dim[0] * k / 2) + '" y="' + P(iy + dim[1] * k / 2 + 3.5) + '" font-size="10" text-anchor="middle" fill="#1d1d1f" font-weight="600">' + dim[0] + '\u00d7' + dim[1] + '</text>' +
+        '</svg>';
+    }
+    el.className = "fres " + cls; el.innerHTML = html;
+    var alt = el.querySelector(".alt");
+    if (alt) alt.addEventListener("click", function(){ var top = sheetC.scrollTop; fillSheet(p.id, v.id, alt.getAttribute("data-s")); sheetC.scrollTop = top; });
+  }
 
   /* olshem syzbasy: aldyngy jagy + usti (izometriya), belgiler eni / terendigi / biiktigi */
   function dimSvg(W, D, H){
@@ -2100,6 +2253,10 @@ body.sheet-open{overflow:hidden}
       (sizes ? '<div class="sopt"><div class="sk">' + esc(T("size")) + '</div><div class="sizes" id="sizes">' + sizes + '</div></div>' : '') +
       (L(p.txt) ? '<p class="stxt">' + esc(L(p.txt)) + '</p>' : '') +
       (dim ? '<div class="sdim"><div class="dk">' + esc(T("dims")) + '</div>' + dimSvg(dim[0], dim[1], dim[2]) + '</div>' : '') +
+      (dim ? '<div class="fit"><div class="dk">' + esc(T("fitH")) + '</div><div class="frow2">' +
+             '<label><span>' + esc(T("fitW")) + '</span><input type="number" inputmode="numeric" min="50" max="3000" id="fitW" placeholder="400" value="' + (ROOMSZ.w || "") + '"><i>\u0441\u043c</i></label>' +
+             '<label><span>' + esc(T("fitD")) + '</span><input type="number" inputmode="numeric" min="50" max="3000" id="fitD" placeholder="350" value="' + (ROOMSZ.d || "") + '"><i>\u0441\u043c</i></label></div>' +
+             '<div class="fplan" id="fplan"></div><div class="fres" id="fres"></div></div>' : '') +
       (rows ? '<dl class="specs">' + rows + '</dl>' : '') +
       (rel ? '<div class="srel"><div class="sk">' + esc(T("related")) + '</div><div class="srow">' + rel + '</div></div>' : '') +
       '<div class="sbtns">' +
@@ -2127,13 +2284,39 @@ body.sheet-open{overflow:hidden}
       b.addEventListener("click", function(){ fillSheet(b.getAttribute("data-p"), null, null); sheetC.scrollTop = 0; });
     });
     bindFav(sheetC.querySelector(".gal .fav"), it);
+    if (dim){
+      var fw_ = document.getElementById("fitW"), fd_ = document.getElementById("fitD");
+      var onFit = function(){ ROOMSZ = {w:+fw_.value || 0, d:+fd_.value || 0}; try { localStorage.setItem("tobylgyRoom", JSON.stringify(ROOMSZ)); } catch (_) {} renderFit(p, v, sz); };
+      fw_.addEventListener("input", onFit); fd_.addEventListener("input", onFit);
+      renderFit(p, v, sz);
+    }
     var rb = document.getElementById("shRoom");
     if (rb) rb.addEventListener("click", function(){ sh.close(); setTimeout(function(){ showInRoom(p.id); }, 380); });
   }
-  function openSheet(pid, vid){
-    fillSheet(pid, vid, null);
-    sheetC.scrollTop = 0;
-    sh.open();
+  /* srcImg - basylgan kartanyn sureti (bolsa): galereyaga "ushady" (VT morf) */
+  var vtImg = null;
+  function clearVtNames(){
+    Array.prototype.forEach.call(document.querySelectorAll('[style*="vt-pimg"]'), function(e){ e.style.viewTransitionName = ""; });
+  }
+  function openSheet(pid, vid, srcImg){
+    clearVtNames();
+    if (srcImg && document.startViewTransition && !REDUCE_VT){ srcImg.style.viewTransitionName = "vt-pimg"; vtImg = srcImg; }
+    sh.open(function(){
+      fillSheet(pid, vid, null);
+      sheetC.scrollTop = 0;
+      if (srcImg){ srcImg.style.viewTransitionName = ""; var g = sheetC.querySelector(".gtrack img"); if (g) g.style.viewTransitionName = "vt-pimg"; }
+    });
+    setTimeout(clearVtNames, 700);
+  }
+  function closeSheetVT(){
+    /* jabylganda galereya sureti kartaga qaityp "ushady" */
+    var g = sheetC.querySelector(".gtrack img"), target = null;
+    if (shCur){ var k = shCur.pid + ":" + shCur.vid; target = document.querySelector('.pc .fav[data-k^="' + k + '"]'); target = target ? target.closest(".pc").querySelector(".pimg") : null; }
+    if (g && target && document.startViewTransition && !REDUCE_VT){
+      g.style.viewTransitionName = "vt-pimg";
+      sh.close(function(){ g.style.viewTransitionName = ""; target.style.viewTransitionName = "vt-pimg"; });
+      setTimeout(clearVtNames, 700);
+    } else sh.close();
   }
 
   /* ---------- BOLME AUYSTYRU ---------- */
@@ -2214,19 +2397,62 @@ body.sheet-open{overflow:hidden}
     if (i >= 0) FAV.splice(i, 1); else FAV.push(k);
     favSave(); setFavState(k); renderFavCount();
     if (lsh.on) renderFavSheet();
+    renderBundle();
   }
   function bindFav(btn, it){ if (btn) btn.addEventListener("click", function(e){ e.stopPropagation(); toggleFav(it); }); }
   var cfav = document.getElementById("cfav"), cfavN = document.getElementById("cfavN"), lsheetC = document.getElementById("lsheetC");
   function renderFavCount(){ cfavN.textContent = FAV.length; cfavN.classList.toggle("on", FAV.length > 0); }
   function favItems(){ return FAV.map(itemFromKey).filter(Boolean); }
-  function waListLink(items){
-    var lines = "", total = 0;
-    items.forEach(function(it, i){
-      var pr = priceOf(it.p, it.v, it.sz); total += pr;
-      lines += (i + 1) + ". " + L(it.p.nm) + " \u2014 " + L(it.v.col) + (it.sz ? ", " + L(it.sz.lbl) : "") + " \u2014 " + fmtT(pr) + "\n";
+  /* jinaq: item tizimi, bolek bagasy, jenildik somasy (juzge domalaqtau) */
+  function bundleItems(b){ return b.items.map(function(x){ var p = prod(x.pid); return p ? {p:p, v:variant(p, x.vid), sz:sizeOf(p, x.sid || null)} : null; }).filter(Boolean); }
+  function bundleSum(items){ var s2 = 0; items.forEach(function(it){ s2 += priceOf(it.p, it.v, it.sz); }); return s2; }
+  function bundleDisc(b, items){ return Math.round(bundleSum(items) * b.off / 100 / 100) * 100; }
+  /* tandaulylar ishinde jinaq tolyq bolsa - jenildik qoldanylady */
+  function favBundleDisc(){
+    var out = [];
+    BUNDLES.forEach(function(b){
+      var items = bundleItems(b); if (!items.length) return;
+      var all = items.every(function(it){ return FAV.indexOf(favKey(it)) >= 0; });
+      if (all) out.push({b:b, disc:bundleDisc(b, items)});
     });
-    var t = T("waList").replace("{list}", lines.replace(/\n$/, "")).replace("{total}", fmtT(total)).replace("{month}", monthly(total));
+    return out;
+  }
+  function listLines(items){
+    var lines = "";
+    items.forEach(function(it, i){
+      lines += (i + 1) + ". " + L(it.p.nm) + " \u2014 " + L(it.v.col) + (it.sz ? ", " + L(it.sz.lbl) : "") + " \u2014 " + fmtT(priceOf(it.p, it.v, it.sz)) + "\n";
+    });
+    return lines.replace(/\n$/, "");
+  }
+  function waListLink(items){
+    var total = bundleSum(items), discs = favBundleDisc(), extra = "";
+    discs.forEach(function(d){ total -= d.disc; extra += "\n" + T("favBundle") + " (" + L(d.b.nm) + "): \u2212" + fmtT(d.disc); });
+    var t = T("waList").replace("{list}", listLines(items) + extra).replace("{total}", fmtT(total)).replace("{month}", monthly(total));
     return "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+  }
+  function waBundleLink(b){
+    var items = bundleItems(b), sep = bundleSum(items), total = sep - bundleDisc(b, items);
+    var t = T("waBundle").replace("{nm}", L(b.nm)).replace("{n}", items.length).replace("{list}", listLines(items)).replace("{total}", fmtT(total)).replace("{sep}", fmtT(sep)).replace("{off}", b.off).replace("{month}", monthly(total));
+    return "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+  }
+  function renderBundle(){
+    var el = document.getElementById("bundle"); if (!el) return;
+    var b = BUNDLES[0], items = b ? bundleItems(b) : [];
+    if (!items.length){ el.hidden = true; return; }
+    el.hidden = false;
+    var sep = bundleSum(items), total = sep - bundleDisc(b, items), thumbs = "";
+    items.forEach(function(it){ thumbs += '<img src="' + it.v.img[0] + '" alt="" loading="lazy">'; });
+    var inList = items.every(function(it){ return FAV.indexOf(favKey(it)) >= 0; });
+    el.innerHTML = '<div class="bthumbs">' + thumbs + '</div><div>' +
+      '<div class="bk">' + esc(T("bundleK").replace("{n}", items.length)) + '</div><h3>' + esc(L(b.nm)) + '</h3><div class="bds">' + esc(T("bundleDs")) + '</div>' +
+      '<div class="bp"><b>' + esc(fmtT(total)) + '</b><s>' + esc(fmtT(sep)) + '</s><span class="off">\u2212' + b.off + '%</span></div>' +
+      '<div class="bm">0-0-12: ' + esc(monthly(total)) + '</div>' +
+      '<div class="bbtns"><button type="button" class="btn btn-s' + (inList ? ' done' : '') + '" id="bAdd">' + esc(T(inList ? "bundleAdded" : "bundleAdd")) + (inList ? ' \u2713' : '') + '</button>' +
+      '<a class="btn btn-p" target="_blank" rel="noopener" href="' + waBundleLink(b) + '">' + WA_ICON + esc(T("bundleAsk")) + '</a></div></div>';
+    document.getElementById("bAdd").addEventListener("click", function(){
+      items.forEach(function(it){ var k = favKey(it); if (FAV.indexOf(k) < 0){ FAV.push(k); setFavState(k); } });
+      favSave(); renderFavCount(); renderBundle(); renderFavSheet(); lsh.open();
+    });
   }
   function renderFavSheet(){
     var items = favItems(), html = '<h3 id="lsNm" style="margin:0 0 8px">' + esc(T("fav")) + (items.length ? ' <span style="color:#6e6e73;font-weight:500">\u00b7 ' + esc(T("favN").replace("{n}", items.length)) + '</span>' : '') + '</h3>';
@@ -2240,7 +2466,10 @@ body.sheet-open{overflow:hidden}
         html += '<div class="fr"><img src="' + it.v.img[0] + '" alt="" loading="lazy"><div><div class="fn">' + esc(L(it.p.nm)) + '</div><div class="fd">' + esc(L(it.v.col) + (it.sz ? ", " + L(it.sz.lbl) : "")) + '</div></div>' +
                 '<div class="fp">' + esc(fmtT(pr)) + '</div><button type="button" class="fx" data-k="' + favKey(it) + '" aria-label="' + esc(T("favRm")) + '">\u00d7</button></div>';
       });
-      html += '</div><div class="ftot"><span class="tk">' + esc(T("favTotal")) + '</span><span><span class="tv">' + esc(fmtT(total)) + '</span><span class="tm">0-0-12: ' + esc(monthly(total)) + '</span></span></div>';
+      html += '</div>';
+      var discs = favBundleDisc();
+      discs.forEach(function(d){ total -= d.disc; html += '<div class="ftot" style="margin-top:8px;padding:10px 16px"><span class="tk">' + esc(T("favBundle")) + ' \u00b7 ' + esc(L(d.b.nm)) + '</span><span class="tv" style="font-size:16px;color:#1f7a3a">\u2212' + esc(fmtT(d.disc)) + '</span></div>'; });
+      html += '<div class="ftot"><span class="tk">' + esc(T("favTotal")) + '</span><span><span class="tv">' + esc(fmtT(total)) + '</span><span class="tm">0-0-12: ' + esc(monthly(total)) + '</span></span></div>';
       html += '<div class="fbtns2"><a class="btn btn-p" target="_blank" rel="noopener" href="' + waListLink(items) + '">' + WA_ICON + esc(T("favAsk")) + '</a><button type="button" class="btn btn-s" id="favClear">' + esc(T("favClear")) + '</button></div>';
     }
     lsheetC.innerHTML = html;
@@ -2310,7 +2539,7 @@ body.sheet-open{overflow:hidden}
     if (fsh.on) renderFilterSheet();
   }
   Array.prototype.forEach.call(langBtns, function(b){
-    b.addEventListener("click", function(e){ e.stopPropagation(); setLang(b.getAttribute("data-lang")); });
+    b.addEventListener("click", function(e){ e.stopPropagation(); var l = b.getAttribute("data-lang"); withVT(function(){ setLang(l); }); });
   });
   setLang(lang);
 
