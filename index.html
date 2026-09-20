@@ -710,10 +710,11 @@ body.loading{overflow:hidden}
 /* "Syia ma?" - bos oryn olshemi -> syiady/syimaidy, plan (ustinen qarau), otu joly */
 .fit{margin-top:12px;background:#fff;border-radius:16px;padding:14px 16px}
 .fit .dk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
+.fit .dk span{font-weight:400}
 .fit .frow2{display:flex;gap:8px}
 .fit label{flex:1;display:flex;align-items:center;gap:6px;height:42px;padding:0 12px;border-radius:12px;background:#f5f5f7;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
 .fit label span{font-size:12px;color:#6e6e73;white-space:nowrap}
-.fit label input{flex:1;min-width:0;width:100%;border:0;background:none;font:inherit;font-size:16px;font-weight:600;color:#1d1d1f;text-align:right;outline:none;-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
+.fit label input{flex:1;min-width:56px;width:100%;border:0;background:none;font:inherit;font-size:16px;font-weight:600;color:#1d1d1f;text-align:right;outline:none;-webkit-appearance:none;appearance:none;-moz-appearance:textfield}
 .fit label input::-webkit-outer-spin-button,.fit label input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .fit label i{font-style:normal;font-size:12px;color:#6e6e73}
 .fit label:focus-within{box-shadow:inset 0 0 0 2px #B05A16}
@@ -1082,7 +1083,7 @@ html.vt .sticky,html.vt .hero{view-transition-name:none}
       kaspiT:"Kaspi Магазинде де бар", kaspiD:"Бөліп төлеу және жеткізу Kaspi арқылы",
       mapOpen:"2GIS-те ашу", mapRoute:"Бағыт алу", mapNote:"Карта — үлгі. Нағыз сайтта дүкеннің 2GIS нүктесі қойылады",
       nowK:"Қазір", openNow:"Ашық · {t}-ге дейін", closedNow:"Жабық · {t}-де ашылады",
-      fitH:"Сыя ма?", fitW:"Бос орын, ені", fitD:"тереңдігі", fitYes:"Сыяды · {x} см артық қалады", fitNo:"Сыймайды · {x} см жетпейді",
+      fitH:"Сыя ма?", fitSub:"бос орын, см", fitW:"Ені", fitD:"Тереңдігі", fitYes:"Сыяды · {x} см артық қалады", fitNo:"Сыймайды · {x} см жетпейді",
       fitNeed:"Өту жолымен {w} × {d} см орын керек", fitAlt:"Кішісін қараңыз: {s}", fitEmpty:"Бос орынның өлшемін жазыңыз — сыятынын көрсетеміз",
       fitRoom:"бөлме", fitWalk:"өту жолы",
       bundleK:"Жинақ · {n} тауар", bundleDs:"Суреттегі бөлменің бәрі — бір тапсырыспен, жинақ жеңілдігімен", bundleSep:"Бөлек", bundleAdd:"Тізімге қосу",
@@ -1134,7 +1135,7 @@ html.vt .sticky,html.vt .hero{view-transition-name:none}
       kaspiT:"Есть и в Kaspi Магазине", kaspiD:"Рассрочка и доставка через Kaspi",
       mapOpen:"Открыть в 2GIS", mapRoute:"Построить маршрут", mapNote:"Карта — образец. На реальном сайте ставится точка магазина из 2GIS",
       nowK:"Сейчас", openNow:"Открыто · до {t}", closedNow:"Закрыто · откроется в {t}",
-      fitH:"Поместится?", fitW:"Свободное место, ширина", fitD:"глубина", fitYes:"Поместится · запас {x} см", fitNo:"Не поместится · не хватает {x} см",
+      fitH:"Поместится?", fitSub:"свободное место, см", fitW:"Ширина", fitD:"Глубина", fitYes:"Поместится · запас {x} см", fitNo:"Не поместится · не хватает {x} см",
       fitNeed:"С проходом нужно {w} × {d} см", fitAlt:"Посмотрите меньший: {s}", fitEmpty:"Введите размер свободного места — покажем, поместится ли",
       fitRoom:"комната", fitWalk:"проход",
       bundleK:"Комплект · {n} товаров", bundleDs:"Вся комната с фото — одним заказом, со скидкой за комплект", bundleSep:"По отдельности", bundleAdd:"В список",
@@ -2253,7 +2254,7 @@ html.vt .sticky,html.vt .hero{view-transition-name:none}
       (sizes ? '<div class="sopt"><div class="sk">' + esc(T("size")) + '</div><div class="sizes" id="sizes">' + sizes + '</div></div>' : '') +
       (L(p.txt) ? '<p class="stxt">' + esc(L(p.txt)) + '</p>' : '') +
       (dim ? '<div class="sdim"><div class="dk">' + esc(T("dims")) + '</div>' + dimSvg(dim[0], dim[1], dim[2]) + '</div>' : '') +
-      (dim ? '<div class="fit"><div class="dk">' + esc(T("fitH")) + '</div><div class="frow2">' +
+      (dim ? '<div class="fit"><div class="dk">' + esc(T("fitH")) + ' <span>\u00b7 ' + esc(T("fitSub")) + '</span></div><div class="frow2">' +
              '<label><span>' + esc(T("fitW")) + '</span><input type="number" inputmode="numeric" min="50" max="3000" id="fitW" placeholder="400" value="' + (ROOMSZ.w || "") + '"><i>\u0441\u043c</i></label>' +
              '<label><span>' + esc(T("fitD")) + '</span><input type="number" inputmode="numeric" min="50" max="3000" id="fitD" placeholder="350" value="' + (ROOMSZ.d || "") + '"><i>\u0441\u043c</i></label></div>' +
              '<div class="fplan" id="fplan"></div><div class="fres" id="fres"></div></div>' : '') +
