@@ -420,27 +420,78 @@ body.loading{overflow:hidden}
 .below .lede{color:#6e6e73;font-size:clamp(15px,1.8vw,19px);line-height:1.5;margin:12px auto 0;max-width:46ch}
 .below .card-s{background:#fff;border-radius:20px;box-shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06)}
 
-/* tildar: telefonda koldenen aynaldyru (scroll-snap), keng ekranda 3 baganaly tor */
-.tiles{display:flex;gap:14px;margin:clamp(24px,4vw,40px) calc(-1 * clamp(18px,4.5vw,40px)) 0;
-  padding:4px clamp(18px,4.5vw,40px) 10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
-  -webkit-overflow-scrolling:touch}
-.tiles::-webkit-scrollbar{display:none}
-.tile{flex:0 0 min(78%, 320px);scroll-snap-align:start;background:#fff;border-radius:20px;overflow:hidden;
-  text-align:left;padding:0;display:flex;flex-direction:column;color:#1d1d1f;
-  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);transition:transform .25s ease, box-shadow .25s ease}
-.tile:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,.05), 0 16px 36px rgba(0,0,0,.10)}
-.tile:focus-visible{outline:2px solid #B05A16;outline-offset:3px}
-.tile .timg{width:100%;height:auto;aspect-ratio:4 / 3;object-fit:contain;display:block;background:#fff}   /* aq fondagy tauar renderi (make_catalog.py) */
-.tile .tb{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
-.tile .tn{font-size:17px;font-weight:600;letter-spacing:-.01em}
-.tile .td{font-size:14px;color:#6e6e73;line-height:1.4}
-.tile .tp{font-family:var(--f-display);font-size:21px;font-weight:700;letter-spacing:-.02em;margin-top:8px;font-variant-numeric:tabular-nums}
-.tile .tl{margin-top:auto;padding-top:12px;font-size:14px;font-weight:500;color:#B05A16}
-.tile .tl::after{content:"\203A";margin-left:5px}
-@media (min-width:720px){
-  .tiles{display:grid;grid-template-columns:repeat(3,1fr);margin:clamp(24px,4vw,40px) 0 0;padding:0;overflow:visible}
-  .tile{flex:none}
-}
+/* ---------- KATALOG: izdeu, kategoriya chipteri, suzgi paragy, tauar tory ----------
+   Zertteu (Zeta, Askona, divan.ru): karta = suret + belgi (Hit/Jana/-%) + ataui + tus/material + baga +
+   eski baga + 0-0-12 ailygy + qoljetimdilik + tus nukteleri. Telefonda 2 bagana, 720px+ 3, 1100px+ 4. */
+.ctool{display:flex;gap:10px;margin-top:clamp(22px,4vw,34px)}
+.csearch{flex:1;display:flex;align-items:center;gap:8px;min-width:0;padding:0 14px;height:44px;border-radius:999px;background:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 0 0 1px rgba(0,0,0,.06);transition:box-shadow .15s}
+.csearch:focus-within{box-shadow:0 0 0 2px #B05A16}
+.csearch svg{width:17px;height:17px;flex:none;fill:none;stroke:#6e6e73;stroke-width:2;stroke-linecap:round}
+.csearch input{flex:1;min-width:0;border:0;background:none;font:inherit;font-size:15.5px;color:#1d1d1f;outline:none;-webkit-appearance:none;appearance:none}
+.csearch input::placeholder{color:#8e8e93}
+.csearch input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.cfbtn{flex:none;display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 16px;border-radius:999px;background:#fff;color:#1d1d1f;
+  font-size:14.5px;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.04), 0 0 0 1px rgba(0,0,0,.06);transition:box-shadow .15s}
+.cfbtn:hover{box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+.cfbtn:focus-visible{outline:2px solid #B05A16;outline-offset:2px}
+.cfbtn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.cfbtn b{display:none;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#D8802A;color:#1A120A;font-size:12px;line-height:20px;text-align:center}
+.cfbtn b.on{display:inline-block}
+.chips{display:flex;gap:8px;margin:14px calc(-1 * clamp(18px,4.5vw,40px)) 0;padding:2px clamp(18px,4.5vw,40px);overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;height:36px;padding:0 14px;border-radius:999px;background:#fff;color:#1d1d1f;font-size:14px;font-weight:500;white-space:nowrap;
+  box-shadow:0 0 0 1px rgba(0,0,0,.08);transition:background .15s,color .15s,box-shadow .15s}
+.chip small{color:#8e8e93;margin-left:4px;font-size:12.5px}
+.chip.on{background:#1d1d1f;color:#fff;box-shadow:none}
+.chip.on small{color:rgba(255,255,255,.6)}
+.chip:focus-visible{outline:2px solid #B05A16;outline-offset:2px}
+.cmeta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;font-size:13.5px;color:#6e6e73}
+.cmeta .fx{display:flex;flex-wrap:wrap;gap:6px}
+.cmeta .fx button{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 10px;border-radius:999px;background:rgba(0,0,0,.06);color:#1d1d1f;font-size:12.5px;font-weight:500}
+.cmeta .fx button::after{content:"\00d7";color:#6e6e73}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media (min-width:720px){ .cgrid{grid-template-columns:repeat(3,1fr);gap:14px} }
+@media (min-width:1100px){ .cgrid{grid-template-columns:repeat(4,1fr)} }
+.pc{position:relative;display:flex;flex-direction:column;text-align:left;padding:0;background:#fff;border-radius:18px;overflow:hidden;color:#1d1d1f;
+  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);transition:transform .25s ease, box-shadow .25s ease;
+  -webkit-tap-highlight-color:transparent}
+.pc:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,.05), 0 16px 36px rgba(0,0,0,.10)}
+.pc:focus-visible{outline:2px solid #B05A16;outline-offset:3px}
+.pc .pimg{width:100%;height:auto;aspect-ratio:4 / 3;object-fit:contain;display:block;background:#fff}
+.pc .pb{padding:10px 12px 12px;display:flex;flex-direction:column;gap:3px;flex:1}
+.pc .pn{font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.25}
+.pc .pd{font-size:12.5px;color:#6e6e73;line-height:1.35}
+.pc .pp{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pc .pp b{font-family:var(--f-display);font-size:17px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.pc .pp s{font-size:12.5px;color:#8e8e93;font-variant-numeric:tabular-nums}
+.pc .pm{font-size:12px;color:#6e6e73;font-variant-numeric:tabular-nums}
+.pc .pa{margin-top:auto;padding-top:8px;font-size:12px;display:flex;align-items:center;gap:5px;color:#6e6e73}
+.pc .pa::before{content:"";width:7px;height:7px;border-radius:50%;background:#c7c7cc;flex:none}
+.pc .pa.in{color:#1f7a3a}.pc .pa.in::before{background:#34c759}
+.pc .pcol{position:absolute;right:10px;top:10px;display:flex;gap:4px}
+.pc .pcol i{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12), 0 0 0 1.5px #fff}
+.badge{position:absolute;left:10px;top:10px;z-index:1;height:22px;padding:0 8px;border-radius:999px;font-size:11.5px;font-weight:600;line-height:22px;color:#fff;background:#1d1d1f}
+.badge.hit{background:#D8802A;color:#1A120A}
+.badge.new{background:#1d1d1f}
+.badge.sale{background:#c0392b}
+.cempty{margin-top:24px;padding:36px 20px;text-align:center;background:#fff;border-radius:18px;color:#6e6e73;font-size:15px}
+.cempty button{display:inline-block;margin-top:10px;color:#B05A16;font-weight:600;font-size:14.5px}
+.cmore{display:flex;justify-content:center;margin-top:18px}
+.cmore button{height:44px;padding:0 22px;border-radius:999px;background:#fff;color:#1d1d1f;font-size:14.5px;font-weight:600;box-shadow:0 0 0 1px rgba(0,0,0,.1)}
+.cmore button:hover{box-shadow:0 0 0 1px rgba(0,0,0,.2)}
+
+/* suzgi paragy: bolimder + chipter */
+.fs .fsec{margin-top:18px}
+.fs .fsec:first-child{margin-top:6px}
+.fs .fk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
+.fs .frow{display:flex;flex-wrap:wrap;gap:8px}
+.fs .chip i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.fs .chip.on i{box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.fs .fbtns{display:flex;gap:10px;margin-top:22px}
+.fs .fbtns .btn{flex:1 1 auto;white-space:nowrap;justify-content:center;padding:14px 16px;font-size:15px;font-weight:600;border-radius:999px;border:0}
+.fs .fbtns .btn-p{background:#1d1d1f;color:#fff}
+.fs .fbtns .btn-s{background:#fff;color:#1d1d1f;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
 
 /* sharttar: stat-tildar - iri man, kishi tusinik */
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:clamp(24px,4vw,40px)}
@@ -489,7 +540,49 @@ body.loading{overflow:hidden}
 .sheet .sx:hover{background:rgba(0,0,0,.13)}
 .sheet .sx::before{content:"";position:absolute;inset:-5px}
 .sheet .sc{overflow:auto;padding:10px 20px 24px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-.sheet .simg{width:100%;height:auto;aspect-ratio:2 / 1;object-fit:contain;background:#fff;border-radius:18px;display:block;margin-top:4px}
+/* galereya: scroll-snap, nukteler, nobailar (Zeta 4 foto, divan.ru 8 - bizde render + bolmede + detal) */
+.gal{position:relative;margin-top:4px}
+.gtrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:18px;background:#fff;-webkit-overflow-scrolling:touch}
+.gtrack::-webkit-scrollbar{display:none}
+.gtrack .gi{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4 / 3}
+.gtrack .gi img{width:100%;height:100%;object-fit:cover;display:block}
+.gtrack .gi.fit img{object-fit:contain;background:#fff}
+.gdots{position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.gdots i{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.18);transition:background .2s}
+.gdots i.on{background:#1d1d1f}
+.gal .badge{left:12px;top:12px}
+.gthumbs{display:flex;gap:8px;margin-top:8px}
+.gthumbs button{flex:none;width:64px;height:48px;padding:0;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);opacity:.7;transition:opacity .15s, box-shadow .15s}
+.gthumbs button img{width:100%;height:100%;object-fit:cover;display:block}
+.gthumbs button.on{opacity:1;box-shadow:0 0 0 2px #1d1d1f}
+.gthumbs button:focus-visible{outline:2px solid #B05A16;outline-offset:2px}
+.sheet .sprice s{font-size:15px;color:#8e8e93;font-variant-numeric:tabular-nums}
+.sheet .sprice .off{font-size:12.5px;font-weight:600;color:#fff;background:#c0392b;border-radius:999px;padding:2px 8px}
+.savail{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:14px;color:#6e6e73}
+.savail::before{content:"";width:8px;height:8px;border-radius:50%;background:#c7c7cc;flex:none}
+.savail.in{color:#1f7a3a}.savail.in::before{background:#34c759}
+.sopt{margin-top:16px}
+.sopt .sk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
+.sopt .sk b{color:#1d1d1f;font-weight:600}
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatches button{width:36px;height:36px;padding:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14), 0 0 0 2px transparent;transition:box-shadow .15s}
+.swatches button.on{box-shadow:inset 0 0 0 1px rgba(0,0,0,.14), 0 0 0 2px #fff, 0 0 0 4px #1d1d1f}
+.swatches button:focus-visible{outline:2px solid #B05A16;outline-offset:4px}
+.sizes{display:flex;flex-wrap:wrap;gap:8px}
+.sizes .chip{height:38px}
+.sdim{margin-top:16px;background:#fff;border-radius:16px;padding:14px 16px 10px}
+.sdim svg{width:100%;height:auto;max-height:170px;display:block}
+.sdim .dk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:4px}
+.srel{margin-top:18px}
+.srel .sk{font-size:13px;font-weight:600;color:#6e6e73;margin-bottom:8px}
+.srow{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:2px 20px 4px}
+.srow::-webkit-scrollbar{display:none}
+.rc{flex:0 0 150px;text-align:left;padding:0;background:#fff;border-radius:14px;overflow:hidden;color:#1d1d1f;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+.rc img{width:100%;height:auto;aspect-ratio:4 / 3;object-fit:contain;display:block;background:#fff}
+.rc .rn{display:block;padding:8px 10px 0;font-size:13px;font-weight:600;line-height:1.25}
+.rc .rp{display:block;padding:2px 10px 10px;font-size:13px;color:#6e6e73;font-variant-numeric:tabular-nums}
+.rc:focus-visible{outline:2px solid #B05A16;outline-offset:2px}
+@media (min-width:720px){ .srow{margin:0 -26px;padding:2px 26px 4px} }
 .sheet h3{font-family:var(--f-display);font-size:24px;font-weight:700;letter-spacing:-.025em;margin:16px 0 2px;line-height:1.15}
 .sheet .ssub{color:#6e6e73;font-size:15px}
 .sheet .sprice{display:flex;align-items:baseline;gap:10px;margin-top:12px;flex-wrap:wrap}
@@ -615,14 +708,24 @@ body.sheet-open{overflow:hidden}
 <div class="wrap">
   <section class="sec" id="price">
     <div class="sec-h">
-      <div class="eyebrow" data-i18n="priceEyebrow">Прайс</div>
-      <h2 data-i18n="priceH2">Суреттегі жиһаздың бағасы</h2>
-      <p class="lede" data-i18n="priceLede">Тілді бассаңыз, сипаттамасы, өлшемі мен бөліп төлеу сомасы ашылады.</p>
+      <div class="eyebrow" data-i18n="catEyebrow">Каталог</div>
+      <h2 data-i18n="catH2">Жиһаз және бағалар</h2>
+      <p class="lede" data-i18n="catLede">Түсі мен өлшемін таңдаңыз — бөліп төлеу сомасы бірден көрінеді.</p>
     </div>
-    <div class="tiles" id="tiles"></div>
+    <div class="ctool">
+      <label class="csearch"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="cq" type="search" autocomplete="off" placeholder="Іздеу" data-i18n-ph="search" aria-label="Іздеу" data-i18n-aria="search"></label>
+      <button class="cfbtn" type="button" id="cfBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg><span data-i18n="filters">Сүзгі</span><b id="cfN">0</b></button>
+    </div>
+    <div class="chips" id="cchips" role="tablist"></div>
+    <div class="cmeta"><span id="ccount"></span><div class="fx" id="cfx"></div></div>
+    <div class="cgrid" id="cgrid"></div>
+    <div class="cempty" id="cempty" hidden><div data-i18n="empty">Ештеңе табылмады</div><button type="button" id="cclear" data-i18n="clear">Сүзгіні тазалау</button></div>
+    <div class="cmore" id="cmoreW" hidden><button type="button" id="cmore"></button></div>
   </section>
 
   <section class="sec">
+    <div class="sec-h">
+      <div class="eyebrow" data-i18n="termsEyebrow">  <section class="sec">
     <div class="sec-h">
       <div class="eyebrow" data-i18n="termsEyebrow">Шарттар</div>
       <h2 data-i18n="termsH2">Жеткізу және төлем</h2>
@@ -682,6 +785,14 @@ body.sheet-open{overflow:hidden}
     <div class="sc" id="sheetC"></div>
   </div>
 </div>
+<div class="sheet fs" id="fsheet" role="dialog" aria-modal="true" aria-labelledby="fsNm" aria-hidden="true">
+  <div class="sbg" id="fsheetBg"></div>
+  <div class="sp" id="fsheetP" tabindex="-1">
+    <div class="grab"></div>
+    <button class="sx" type="button" id="fsheetX" aria-label="Жабу" data-i18n-aria="close">×</button>
+    <div class="sc" id="fsheetC"></div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -706,13 +817,11 @@ body.sheet-open{overflow:hidden}
     kk: {
       title:"Tobylğy · Қонақ бөлме", h1:"Бөлмені толық жинап береміз",
       meta1:"Бағалар суретте", meta2:"Бөліп төлеу 0-0-12", meta3:"Жеткізу тегін",
-      contact:"Байланысу", call:"Қоңырау шалу", hint:"Жылжытыңыз · {n} жиһаз", next:"Прайс",
+      contact:"Байланысу", call:"Қоңырау шалу", hint:"Жылжытыңыз · {n} жиһаз",
       scrubAria:"Бөлмедегі орын", langAria:"Тіл", close:"Жабу", prevItem:"Алдыңғы жиһаз", nextItem:"Келесі жиһаз",
       more:"Толығырақ", perMonth:"0-0-12: {sum} / ай", inRoom:"Бөлмеде көру",
       note:"Бағалар мен өлшемдер — үлгі. Жеткізу қала бойынша тегін.",
-      priceEyebrow:"Прайс", priceH2:"Суреттегі жиһаздың бағасы",
-      priceLede:"Тілді бассаңыз, сипаттамасы, өлшемі мен бөліп төлеу сомасы ашылады.",
-      termsEyebrow:"Шарттар", termsH2:"Жеткізу және төлем",
+            termsEyebrow:"Шарттар", termsH2:"Жеткізу және төлем",
       st1k:"Жеткізу", st1v:"Тегін", st1d:"Қала бойынша, құрастыруымен",
       st2k:"Мерзімі", st2v:"10–14 күн", st2d:"Тапсырыспен. Қоймадағысы сол күні",
       st3k:"Бөліп төлеу", st3d:"3, 6, 12 ай, үстеме ақысыз",
@@ -723,6 +832,17 @@ body.sheet-open{overflow:hidden}
       footer:"Үлгі бет · Tobylğy · бағалар, фото және мекенжай — үлгі, сіздікімен ауыстырылады",
       waItem:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын.\nТауар: {nm} ({ds})\nСайттағы бағасы: {pr}\nҚолжетімділігі, жеткізу және бөліп төлеу туралы айтып жіберіңізші.",
       waGeneral:"Сәлеметсіз бе! Tobylğy сайтынан жазып отырмын. Қонақ бөлмеге жиһаз таңдауға көмектесіңізші.",
+      catEyebrow:"Каталог", catH2:"Жиһаз және бағалар", catLede:"Түсі мен өлшемін таңдаңыз — бөліп төлеу сомасы бірден көрінеді.",
+      search:"Іздеу", filters:"Сүзгі", filtersH:"Сүзгі және сұрыптау", count:"{n} тауар", empty:"Ештеңе табылмады", clear:"Сүзгіні тазалау",
+      moreN:"Тағы {n} тауар", apply:"Көрсету", reset:"Тазалау",
+      catAll:"Барлығы", catSofa:"Дивандар", catArmchair:"Креслолар", catTable:"Үстелдер", catDining:"Асхана", catKitchen:"Ас үй",
+      fPrice:"Баға", fColor:"Түсі", fAvail:"Қолжетімділік", fSort:"Сұрыптау",
+      pr1:"500 мыңға дейін", pr2:"500 мың – 1 млн", pr3:"1 млн-нан жоғары",
+      colWhite:"Ақ", colBeige:"Беж", colGrey:"Сұр", colBlack:"Қара", colOak:"Емен", colBrown:"Қоңыр", colOlive:"Зәйтүн",
+      inStock:"Қоймада бар", inStockD:"Қоймада бар · ертең жеткіземіз", onOrder:"Тапсырыспен · 10–14 күн", onlyStock:"Тек қоймадағылар",
+      sortPop:"Танымал", sortAsc:"Арзаннан", sortDesc:"Қымбаттан", sortNew:"Жаңалары",
+      color:"Түсі", size:"Өлшемі", dims:"Өлшемдері", dimW:"ені", dimD:"тереңдігі", dimH:"биіктігі", related:"Бірге алады", similar:"Ұқсас",
+      badgeHit:"Хит", badgeNew:"Жаңа", next:"Каталог",
       svcEyebrow:"Tobylğy · қызметтер", svcH2:"Сіздің бизнесіңізге де осындай сайт",
       svcLede:"Бұл бет — Tobylğy жұмысының үлгісі. Кез келген бизнеске арзан, жылдам, телефонға бейімделген беттер жасаймын: бағасы суретте тұрған дүкен, каталог, WhatsApp-қа дайын хат.",
       svcNote:"Бағалар — бастапқы, нақты сома жұмыс көлеміне қарай. Кездесуге өзім келемін.",
@@ -733,13 +853,11 @@ body.sheet-open{overflow:hidden}
     ru: {
       title:"Tobylğy · Гостиная", h1:"Соберём комнату целиком",
       meta1:"Цены на фото", meta2:"Рассрочка 0-0-12", meta3:"Доставка бесплатно",
-      contact:"Связаться", call:"Позвонить", hint:"Листайте · {n} предметов", next:"Прайс",
+      contact:"Связаться", call:"Позвонить", hint:"Листайте · {n} предметов",
       scrubAria:"Положение в комнате", langAria:"Язык", close:"Закрыть", prevItem:"Предыдущий предмет", nextItem:"Следующий предмет",
       more:"Подробнее", perMonth:"0-0-12: {sum} / мес", inRoom:"Показать в комнате",
       note:"Цены и размеры — образец. Доставка по городу бесплатно.",
-      priceEyebrow:"Прайс", priceH2:"Цены на мебель с фото",
-      priceLede:"Нажмите на карточку — откроются описание, размеры и сумма рассрочки.",
-      termsEyebrow:"Условия", termsH2:"Доставка и оплата",
+            termsEyebrow:"Условия", termsH2:"Доставка и оплата",
       st1k:"Доставка", st1v:"Бесплатно", st1d:"По городу, со сборкой",
       st2k:"Срок", st2v:"10–14 дней", st2d:"Под заказ. Со склада — в тот же день",
       st3k:"Рассрочка", st3d:"3, 6, 12 месяцев без переплаты",
@@ -750,6 +868,17 @@ body.sheet-open{overflow:hidden}
       footer:"Демо-страница · Tobylğy · цены, фото и адрес — образец, заменяются вашими",
       waItem:"Здравствуйте! Пишу с сайта Tobylğy.\nТовар: {nm} ({ds})\nЦена на сайте: {pr}\nПодскажите, пожалуйста, наличие, доставку и рассрочку.",
       waGeneral:"Здравствуйте! Пишу с сайта Tobylğy. Помогите, пожалуйста, подобрать мебель для гостиной.",
+      catEyebrow:"Каталог", catH2:"Мебель и цены", catLede:"Выберите цвет и размер — сумма рассрочки видна сразу.",
+      search:"Поиск", filters:"Фильтр", filtersH:"Фильтр и сортировка", count:"{n} товаров", empty:"Ничего не найдено", clear:"Сбросить фильтр",
+      moreN:"Ещё {n} товаров", apply:"Показать", reset:"Сбросить",
+      catAll:"Все", catSofa:"Диваны", catArmchair:"Кресла", catTable:"Столы", catDining:"Столовая", catKitchen:"Кухня",
+      fPrice:"Цена", fColor:"Цвет", fAvail:"Наличие", fSort:"Сортировка",
+      pr1:"до 500 тыс.", pr2:"500 тыс. – 1 млн", pr3:"от 1 млн",
+      colWhite:"Белый", colBeige:"Бежевый", colGrey:"Серый", colBlack:"Чёрный", colOak:"Дуб", colBrown:"Коричневый", colOlive:"Оливковый",
+      inStock:"В наличии", inStockD:"В наличии · доставим завтра", onOrder:"Под заказ · 10–14 дней", onlyStock:"Только в наличии",
+      sortPop:"Популярные", sortAsc:"Дешевле", sortDesc:"Дороже", sortNew:"Новинки",
+      color:"Цвет", size:"Размер", dims:"Размеры", dimW:"ширина", dimD:"глубина", dimH:"высота", related:"Часто берут вместе", similar:"Похожие",
+      badgeHit:"Хит", badgeNew:"Новинка", next:"Каталог",
       svcEyebrow:"Tobylğy · услуги", svcH2:"Такой же сайт для вашего бизнеса",
       svcLede:"Эта страница — образец работы Tobylğy. Делаю недорогие, быстрые, мобильные страницы для любого бизнеса: магазин с ценами на фото, каталог, готовое письмо в WhatsApp.",
       svcNote:"Цены стартовые, точная сумма зависит от объёма. На встречу приезжаю сам.",
@@ -884,45 +1013,99 @@ body.sheet-open{overflow:hidden}
             [projS(TR), projS(TRb), projS(BRb), projS(BR)], visR];
   }
 
-  /* Tauar derekteri: nm/ds/txt - {kk, ru}, sp - {kk:[[belgi, man]...], ru:[...]}, pr - baga (jol, "₸").
-     Bagalar men olshemder - ULGI, dukenmen kelisiledi. L() agymdagy tildi taldaidy. */
-  var SPOTS = [
-    {x:0.094, y:0.840, im:"img/r2-armchair.webp", pr:"340 000 ₸",
-     nm:{kk:"Кресло", ru:"Кресло"},
-     ds:{kk:"Беж былғары, қара емен аяқ", ru:"Бежевая кожа, ножки из тёмного дуба"},
-     txt:{kk:"Дөңгелек арқалы жайлы кресло: беж түсті табиғи былғары, ішкі қаңқасы қатты ағаш, аяғы қара түсті емен. Оқу бұрышына, қонақ бөлмеге немесе жатын бөлмеге бір дана не жұп ретінде алуға болады.",
-          ru:"Уютное кресло с округлой спинкой: натуральная кожа бежевого цвета, каркас из массива, ножки из дуба тёмного тона. Подойдёт для уголка чтения, гостиной или спальни — одно или парой."},
-     sp:{kk:[["Материал","Табиғи былғары, емен қаңқа"],["Өлшемі","78 × 80 × 74 см (ені × тереңдігі × биіктігі)"],["Отырғыш","42 см биіктік"],["Түсі","Беж / қара емен"],["Жинақта","1 кресло"],["Кепілдік","24 ай"]],
-         ru:[["Материал","Натуральная кожа, дубовый каркас"],["Размер","78 × 80 × 74 см (Ш × Г × В)"],["Сиденье","высота 42 см"],["Цвет","Бежевый / тёмный дуб"],["В комплекте","1 кресло"],["Гарантия","24 месяца"]]}},
-    {x:0.490, y:0.635, im:"img/r2-sofa.webp", pr:"1 450 000 ₸",
-     nm:{kk:"Бұрыштық диван", ru:"Угловой диван"},
-     ds:{kk:"Ақ мата, шезлонгпен, бес орын", ru:"Белая ткань, с шезлонгом, пять мест"},
-     txt:{kk:"Модульдік бұрыштық диван: төрт орындық негіз және кең шезлонг. Қаптамасы тығыз ақ мата, дақтан оңай тазаланады, жастықтары бөлек алынады. Бұрышын сол немесе оң жаққа таңдауға болады.",
-          ru:"Модульный угловой диван: четырёхместная основа и широкий шезлонг. Обивка — плотная белая ткань, легко чистится от пятен, подушки съёмные. Угол можно выбрать слева или справа."},
-     sp:{kk:[["Материал","Мата (полиэстер 80%, мақта 20%), бук қаңқа"],["Өлшемі","320 × 180 × 82 см"],["Орын саны","5"],["Бұрышы","Сол / оң, тапсырыста"],["Жинақта","Диван, 4 жастық"],["Кепілдік","24 ай"]],
-         ru:[["Материал","Ткань (полиэстер 80%, хлопок 20%), каркас из бука"],["Размер","320 × 180 × 82 см"],["Мест","5"],["Угол","Левый / правый, под заказ"],["В комплекте","Диван, 4 подушки"],["Гарантия","24 месяца"]]}},
-    {x:0.400, y:0.760, im:"img/r2-tables.webp", pr:"420 000 ₸",
-     nm:{kk:"Кофе үстелдері", ru:"Кофейные столики"},
+  /* ---------- KATALOG DEREKTERI ----------
+     PRODUCTS - modelder: cat (kategoriya), spot (hero-dagy belgi indeksi, -1 = joq), nm/ds/txt/sp - {kk, ru},
+     dim [eni, terendigi, biiktigi] sm, sizes - olshem nusqalary (add - bagaga qosylatyn/alynatyn soma),
+     variants - tus nusqalary: col {kk,ru}, hex, cg (suzgi toby), img [render, bolmede, detal], pr (san),
+     old (eski baga, 0 = joq), stock "in" | "order", badge "hit" | "new" | "". Katalogda ar variant - bolek karta.
+     Bagalar, olshemder, materialdar - ULGI. Suretter: make_variants.py (img/p/). */
+  var PRODUCTS = [
+    {id:"armchair", cat:"armchair", spot:0, dim:[78,80,74],
+     nm:{kk:"Кресло Aru", ru:"Кресло Aru"},
+     ds:{kk:"Табиғи былғары, емен аяқ", ru:"Натуральная кожа, дубовые ножки"},
+     txt:{kk:"Дөңгелек арқалы жайлы кресло: табиғи былғары, ішкі қаңқасы қатты ағаш, аяғы қара түсті емен. Оқу бұрышына, қонақ бөлмеге немесе жатын бөлмеге бір дана не жұп ретінде алуға болады.",
+          ru:"Уютное кресло с округлой спинкой: натуральная кожа, каркас из массива, ножки из дуба тёмного тона. Подойдёт для уголка чтения, гостиной или спальни — одно или парой."},
+     sp:{kk:[["Материал","Табиғи былғары, емен қаңқа"],["Отырғыш","42 см биіктік"],["Жинақта","1 кресло"],["Кепілдік","24 ай"]],
+         ru:[["Материал","Натуральная кожа, дубовый каркас"],["Сиденье","высота 42 см"],["В комплекте","1 кресло"],["Гарантия","24 месяца"]]},
+     variants:[
+       {id:"beige", col:{kk:"Беж", ru:"Бежевый"}, hex:"#C9B39A", cg:"beige", img:["img/p/armchair-beige.webp","img/p/armchair-room.webp","img/p/armchair-beige-d.webp"], pr:340000, old:0, stock:"in", badge:"hit"},
+       {id:"cognac", col:{kk:"Коньяк", ru:"Коньяк"}, hex:"#8B5A3C", cg:"brown", img:["img/p/armchair-cognac.webp","img/p/armchair-room.webp","img/p/armchair-cognac-d.webp"], pr:360000, old:0, stock:"order", badge:""},
+       {id:"graphite", col:{kk:"Графит", ru:"Графит"}, hex:"#3A3A3C", cg:"black", img:["img/p/armchair-graphite.webp","img/p/armchair-room.webp","img/p/armchair-graphite-d.webp"], pr:340000, old:0, stock:"in", badge:""}
+     ]},
+    {id:"sofa", cat:"sofa", spot:1, dim:[320,180,82],
+     nm:{kk:"Диван Tamir", ru:"Диван Tamir"},
+     ds:{kk:"Мата, бук қаңқа, шезлонгпен", ru:"Ткань, каркас из бука, с шезлонгом"},
+     txt:{kk:"Модульдік бұрыштық диван: төрт орындық негіз және кең шезлонг. Қаптамасы тығыз мата, дақтан оңай тазаланады, жастықтары бөлек алынады. Бұрышын сол немесе оң жаққа таңдауға болады.",
+          ru:"Модульный угловой диван: четырёхместная основа и широкий шезлонг. Обивка — плотная ткань, легко чистится от пятен, подушки съёмные. Угол можно выбрать слева или справа."},
+     sp:{kk:[["Материал","Мата (полиэстер 80%, мақта 20%), бук қаңқа"],["Орын саны","5"],["Бұрышы","Сол / оң, тапсырыста"],["Жинақта","Диван, 4 жастық"],["Кепілдік","24 ай"]],
+         ru:[["Материал","Ткань (полиэстер 80%, хлопок 20%), каркас из бука"],["Мест","5"],["Угол","Левый / правый, под заказ"],["В комплекте","Диван, 4 подушки"],["Гарантия","24 месяца"]]},
+     sizes:[{id:"corner", lbl:{kk:"Бұрыштық, 320 см", ru:"Угловой, 320 см"}, dim:[320,180,82], add:0},
+            {id:"straight", lbl:{kk:"Түзу, 240 см", ru:"Прямой, 240 см"}, dim:[240,100,82], add:-320000}],
+     variants:[
+       {id:"white", col:{kk:"Ақ", ru:"Белый"}, hex:"#EFEAE2", cg:"white", img:["img/p/sofa-white.webp","img/p/sofa-room.webp","img/p/sofa-white-d.webp"], pr:1450000, old:0, stock:"in", badge:"hit"},
+       {id:"graphite", col:{kk:"Графит", ru:"Графит"}, hex:"#55565A", cg:"grey", img:["img/p/sofa-graphite.webp","img/p/sofa-room.webp","img/p/sofa-graphite-d.webp"], pr:1450000, old:1590000, stock:"order", badge:""},
+       {id:"olive", col:{kk:"Зәйтүн", ru:"Оливковый"}, hex:"#9AA687", cg:"olive", img:["img/p/sofa-olive.webp","img/p/sofa-room.webp","img/p/sofa-olive-d.webp"], pr:1490000, old:0, stock:"in", badge:"new"}
+     ]},
+    {id:"tables", cat:"table", spot:2, dim:[120,70,32],
+     nm:{kk:"Кофе үстелдері Duo", ru:"Кофейные столики Duo"},
      ds:{kk:"Тұтас емен, екі биіктік, жұп", ru:"Массив дуба, две высоты, пара"},
-     txt:{kk:"Екі үстел бір-біріне сыйып тұрады: төменгісі кең, жоғарғысы шағын. Тұтас еменнен, май-воскпен өңделген, ағаш текстурасы көрініп тұрады. Диван алдына бір деңгейде де, екі деңгейде де қоюға болады.",
-          ru:"Два столика вкладываются друг в друга: нижний шире, верхний компактнее. Массив дуба, обработан маслом-воском, текстура дерева видна. Перед диваном можно ставить на одном уровне или на двух."},
-     sp:{kk:[["Материал","Тұтас емен, май-воск"],["Өлшемі","120 × 70 × 32 см және 90 × 60 × 40 см"],["Түсі","Табиғи емен"],["Жинақта","2 үстел"],["Кепілдік","24 ай"]],
-         ru:[["Материал","Массив дуба, масло-воск"],["Размер","120 × 70 × 32 см и 90 × 60 × 40 см"],["Цвет","Натуральный дуб"],["В комплекте","2 столика"],["Гарантия","24 месяца"]]}},
-    {x:0.631, y:0.605, im:"img/r2-dining.webp", pr:"890 000 ₸",
-     nm:{kk:"Асхана жиынтығы", ru:"Обеденная группа"},
-     ds:{kk:"Емен үстел, алты жұмсақ орындық", ru:"Дубовый стол, шесть мягких стульев"},
-     txt:{kk:"Алты адамға арналған асхана жиынтығы: тұтас емен үстел және жұмсақ арқалы алты орындық. Орындық тысы беж түсті тығыз мата, аяқтары емен. Үстел ортасынан 40 см ұзарады, сегіз адам сыяды.",
-          ru:"Обеденная группа на шесть персон: стол из массива дуба и шесть стульев с мягкой спинкой. Обивка стульев — плотная бежевая ткань, ножки дубовые. Стол раздвигается на 40 см, помещаются восемь человек."},
-     sp:{kk:[["Материал","Тұтас емен, мата"],["Үстел","180 (220) × 90 × 76 см"],["Орындық","52 × 58 × 84 см"],["Түсі","Табиғи емен / беж"],["Жинақта","Үстел + 6 орындық"],["Кепілдік","24 ай"]],
-         ru:[["Материал","Массив дуба, ткань"],["Стол","180 (220) × 90 × 76 см"],["Стул","52 × 58 × 84 см"],["Цвет","Натуральный дуб / бежевый"],["В комплекте","Стол + 6 стульев"],["Гарантия","24 месяца"]]}},
-    {x:0.759, y:0.627, im:"img/r2-island.webp", pr:"1 200 000 ₸",
-     nm:{kk:"Ас үй аралы", ru:"Кухонный остров"},
-     ds:{kk:"Мәрмәр реңкті бет, үш бар орындық", ru:"Столешница под мрамор, три барных стула"},
-     txt:{kk:"Ас үй аралы: керамогранит мәрмәр реңкті бет, астында жабық сөрелер, бір жағынан үш бар орындық сыяды. Бет ыстыққа және дақтарға төзімді. Раковина мен кран суретте көрсетілген, жинаққа кірмейді, тапсырыс бойынша ойық жасалады.",
-          ru:"Кухонный остров: столешница из керамогранита под мрамор, снизу закрытые полки, с одной стороны помещаются три барных стула. Поверхность устойчива к жару и пятнам. Мойка и смеситель показаны на фото, в комплект не входят — вырез делается под заказ."},
-     sp:{kk:[["Бет","Керамогранит, мәрмәр реңкі"],["Өлшемі","240 × 100 × 92 см"],["Орындықтар","3 дана, емен, беж отырғыш"],["Жинақта","Арал + 3 орындық (раковина, кран, плита кірмейді)"],["Кепілдік","24 ай"]],
-         ru:[["Столешница","Керамогранит, под мрамор"],["Размер","240 × 100 × 92 см"],["Стулья","3 шт., дуб, бежевое сиденье"],["В комплекте","Остров + 3 стула (мойка, смеситель, плита не входят)"],["Гарантия","24 месяца"]]}}
+     txt:{kk:"Екі үстел бір-біріне сыйып тұрады: төменгісі кең, жоғарғысы шағын. Тұтас ағаш, май-воскпен өңделген, текстурасы көрініп тұрады. Диван алдына бір деңгейде де, екі деңгейде де қоюға болады.",
+          ru:"Два столика вкладываются друг в друга: нижний шире, верхний компактнее. Массив, обработан маслом-воском, текстура дерева видна. Перед диваном можно ставить на одном уровне или на двух."},
+     sp:{kk:[["Материал","Тұтас ағаш, май-воск"],["Өлшемі","120 × 70 × 32 см және 90 × 60 × 40 см"],["Жинақта","2 үстел"],["Кепілдік","24 ай"]],
+         ru:[["Материал","Массив, масло-воск"],["Размер","120 × 70 × 32 см и 90 × 60 × 40 см"],["В комплекте","2 столика"],["Гарантия","24 месяца"]]},
+     variants:[
+       {id:"oak", col:{kk:"Емен", ru:"Дуб"}, hex:"#C8A57A", cg:"oak", img:["img/p/tables-oak.webp","img/p/tables-room.webp","img/p/tables-oak-d.webp"], pr:420000, old:0, stock:"in", badge:""},
+       {id:"walnut", col:{kk:"Жаңғақ", ru:"Орех"}, hex:"#6E4A2E", cg:"brown", img:["img/p/tables-walnut.webp","img/p/tables-room.webp","img/p/tables-walnut-d.webp"], pr:440000, old:490000, stock:"in", badge:""}
+     ]},
+    {id:"dining", cat:"dining", spot:3, dim:[180,90,76],
+     nm:{kk:"Асхана жиынтығы Dala", ru:"Обеденная группа Dala"},
+     ds:{kk:"Ағаш үстел, жұмсақ орындықтар", ru:"Деревянный стол, мягкие стулья"},
+     txt:{kk:"Асхана жиынтығы: тұтас ағаш үстел және жұмсақ арқалы орындықтар. Орындық тысы тығыз мата, аяқтары ағаш. Үстел ортасынан 40 см ұзарады, екі адам артық сыяды.",
+          ru:"Обеденная группа: стол из массива и стулья с мягкой спинкой. Обивка стульев — плотная ткань, ножки деревянные. Стол раздвигается на 40 см, помещаются ещё два человека."},
+     sp:{kk:[["Материал","Тұтас ағаш, мата"],["Үстел","180 (220) × 90 × 76 см"],["Орындық","52 × 58 × 84 см"],["Кепілдік","24 ай"]],
+         ru:[["Материал","Массив, ткань"],["Стол","180 (220) × 90 × 76 см"],["Стул","52 × 58 × 84 см"],["Гарантия","24 месяца"]]},
+     sizes:[{id:"s6", lbl:{kk:"Үстел + 6 орындық", ru:"Стол + 6 стульев"}, dim:[180,90,76], add:0},
+            {id:"s8", lbl:{kk:"Үстел + 8 орындық, 220 см", ru:"Стол + 8 стульев, 220 см"}, dim:[220,90,76], add:180000}],
+     variants:[
+       {id:"oak", col:{kk:"Емен · беж", ru:"Дуб · бежевый"}, hex:"#C8A57A", cg:"oak", img:["img/p/dining-oak.webp","img/p/dining-room.webp","img/p/dining-oak-d.webp"], pr:890000, old:0, stock:"in", badge:"hit"},
+       {id:"walnut", col:{kk:"Жаңғақ · кэмел", ru:"Орех · кэмел"}, hex:"#6E4A2E", cg:"brown", img:["img/p/dining-walnut.webp","img/p/dining-room.webp","img/p/dining-walnut-d.webp"], pr:890000, old:1010000, stock:"order", badge:""},
+       {id:"light", col:{kk:"Ақ емен", ru:"Белёный дуб"}, hex:"#E3D6C3", cg:"beige", img:["img/p/dining-light.webp","img/p/dining-room.webp","img/p/dining-light-d.webp"], pr:920000, old:0, stock:"order", badge:"new"}
+     ]},
+    {id:"island", cat:"kitchen", spot:4, dim:[240,100,92],
+     nm:{kk:"Ас үй аралы Tas", ru:"Кухонный остров Tas"},
+     ds:{kk:"Керамогранит бет, бар орындықтар", ru:"Столешница из керамогранита, барные стулья"},
+     txt:{kk:"Ас үй аралы: керамогранит мәрмәр реңкті бет, астында жабық сөрелер, бір жағынан бар орындықтар сыяды. Бет ыстыққа және дақтарға төзімді. Раковина мен кран суретте көрсетілген, жинаққа кірмейді, тапсырыс бойынша ойық жасалады.",
+          ru:"Кухонный остров: столешница из керамогранита под мрамор, снизу закрытые полки, с одной стороны помещаются барные стулья. Поверхность устойчива к жару и пятнам. Мойка и смеситель показаны на фото, в комплект не входят — вырез делается под заказ."},
+     sp:{kk:[["Бет","Керамогранит, мәрмәр реңкі"],["Орындықтар","Ағаш, беж отырғыш"],["Жинақта","Арал + орындықтар (раковина, кран, плита кірмейді)"],["Кепілдік","24 ай"]],
+         ru:[["Столешница","Керамогранит, под мрамор"],["Стулья","Дерево, бежевое сиденье"],["В комплекте","Остров + стулья (мойка, смеситель, плита не входят)"],["Гарантия","24 месяца"]]},
+     sizes:[{id:"s3", lbl:{kk:"240 см, 3 орындық", ru:"240 см, 3 стула"}, dim:[240,100,92], add:0},
+            {id:"s2", lbl:{kk:"180 см, 2 орындық", ru:"180 см, 2 стула"}, dim:[180,100,92], add:-90000}],
+     variants:[
+       {id:"grey", col:{kk:"Сұр мәрмәр", ru:"Серый мрамор"}, hex:"#9A9590", cg:"grey", img:["img/p/island-grey.webp","img/p/island-room.webp","img/p/island-grey-d.webp"], pr:1200000, old:0, stock:"order", badge:""},
+       {id:"black", col:{kk:"Қара мәрмәр", ru:"Чёрный мрамор"}, hex:"#2E2C2B", cg:"black", img:["img/p/island-black.webp","img/p/island-room.webp","img/p/island-black-d.webp"], pr:1250000, old:0, stock:"in", badge:"new"}
+     ]}
   ];
+  var CATS = ["sofa", "armchair", "table", "dining", "kitchen"];
+  var CAT_KEY = {sofa:"catSofa", armchair:"catArmchair", table:"catTable", dining:"catDining", kitchen:"catKitchen"};
+  var COLS = {white:"#EFEAE2", beige:"#C9B39A", grey:"#8E8E93", black:"#2E2C2B", oak:"#C8A57A", brown:"#6E4A2E", olive:"#9AA687"};
+  var COL_KEY = {white:"colWhite", beige:"colBeige", grey:"colGrey", black:"colBlack", oak:"colOak", brown:"colBrown", olive:"colOlive"};
+  var RELATED = {sofa:["tables","armchair"], tables:["sofa","armchair"], armchair:["sofa","tables"], dining:["island"], island:["dining"]};
+  function prod(pid){ for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === pid) return PRODUCTS[i]; return null; }
+  function variant(p, vid){ for (var i = 0; i < p.variants.length; i++) if (p.variants[i].id === vid) return p.variants[i]; return p.variants[0]; }
+  function sizeOf(p, sid){ if (!p.sizes) return null; for (var i = 0; i < p.sizes.length; i++) if (p.sizes[i].id === sid) return p.sizes[i]; return p.sizes[0]; }
+  function priceOf(p, v, sz){ return v.pr + (sz ? sz.add : 0); }
+  function oldOf(p, v, sz){ return v.old ? v.old + (sz ? sz.add : 0) : 0; }
+
+  /* Hero-dagy belgiler: suret ulesi + qai tauar/variant */
+  var SPOTS = [
+    {x:0.094, y:0.840, pid:"armchair", vid:"beige"},
+    {x:0.490, y:0.635, pid:"sofa", vid:"white"},
+    {x:0.400, y:0.760, pid:"tables", vid:"oak"},
+    {x:0.631, y:0.605, pid:"dining", vid:"oak"},
+    {x:0.759, y:0.627, pid:"island", vid:"grey"}
+  ];
+  function spotItem(i){ var p = prod(SPOTS[i].pid); return {p:p, v:variant(p, SPOTS[i].vid), sz:sizeOf(p, null)}; }
+
 
   /* WhatsApp: daiyn hat. Kartochkadan bassa - qai tauardan kirgeni jazylyp turady,
      sondyqtan satushy birden ne turaly ekenin biledi (suramaidy). */
@@ -965,11 +1148,16 @@ body.sheet-open{overflow:hidden}
     var c = document.getElementById("waSvc"); if (c) c.href = waSvcLink(null);
   }
 
-  function waText(s2){
-    if (!s2) return T("waGeneral");
-    return T("waItem").replace("{nm}", L(s2.nm)).replace("{ds}", L(s2.ds)).replace("{pr}", s2.pr);
+  /* item = {p, v, sz} */
+  function itemDs(it){ return L(it.v.col) + (it.sz ? ", " + L(it.sz.lbl) : "") + " · " + L(it.p.ds); }
+  function waText(it){
+    if (!it) return T("waGeneral");
+    return T("waItem").replace("{nm}", L(it.p.nm)).replace("{ds}", L(it.v.col) + (it.sz ? ", " + L(it.sz.lbl) : "")).replace("{pr}", fmtT(priceOf(it.p, it.v, it.sz)));
   }
-  function waLink(s2){ return "https://wa.me/" + WA + "?text=" + encodeURIComponent(waText(s2)); }
+  function waLink(it){ return "https://wa.me/" + WA + "?text=" + encodeURIComponent(waText(it)); }
+  function num(pr){ return parseInt(String(pr).replace(/[^0-9]/g, ""), 10) || 0; }
+  function fmtT(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " \u20b8"; }
+  function monthly(n){ return n ? fmtT(Math.round(n / 12 / 100) * 100) : ""; }   /* 0-0-12, juzge domalaqtau */
 
   document.documentElement.lang = lang;                  /* ekran oqygysh tildi tanysyn */
   var hero   = document.getElementById("hero");
@@ -987,7 +1175,6 @@ body.sheet-open{overflow:hidden}
   var scrub = document.getElementById("scrub"), scrubT = document.getElementById("scrubT");
   var restK = 1.12;                                        /* jazyq kartanyn masshtaby; keng ekranda ulkenirek */
   var cueSeen = false;          /* birinshi qimyldan keiin ishara biryola ketedi */
-  var tiles = document.getElementById("tiles");
 
   var imgW = 0, imgH = 0, ready = false, ticking = false;
   var fw = 0, fh = 0, dispW = 0, dispH = 0, dy = 0, range = 0, off = 0, off0 = 0;
@@ -999,12 +1186,12 @@ body.sheet-open{overflow:hidden}
   }
 
   var els = SPOTS.map(function(s, i){
-    var b = document.createElement("button");
+    var b = document.createElement("button"), it = spotItem(i);
     b.type = "button";
     /* on jaqta turgan zattyn jazuy solga qaraidy - kadrdan shygyp ketpesin */
     b.className = "pin";
-    b.setAttribute("aria-label", L(s.nm) + ", " + s.pr);
-    b.innerHTML = '<i class="dot"></i><span class="lab">' + esc(s.pr) + '</span>';
+    b.setAttribute("aria-label", L(it.p.nm) + ", " + fmtT(priceOf(it.p, it.v, it.sz)));
+    b.innerHTML = '<i class="dot"></i><span class="lab">' + esc(fmtT(priceOf(it.p, it.v, it.sz))) + '</span>';
     b.style.setProperty("--i", i);                       /* sozbede kezekpen shygu */
     b.addEventListener("click", function(e){ e.stopPropagation(); showCard(i); });
     zoom.appendChild(b);
@@ -1037,21 +1224,134 @@ body.sheet-open{overflow:hidden}
   scrub.addEventListener("pointerup", scrubEnd);
   scrub.addEventListener("pointercancel", scrubEnd);
 
-  function renderTiles(){
-    tiles.innerHTML = "";
-    SPOTS.forEach(function(s, i){
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "tile";
-      b.innerHTML = '<img class="timg" src="' + s.im + '" alt="" width="880" height="660" loading="lazy">' +
-                    '<div class="tb"><div class="tn">' + esc(L(s.nm)) + '</div>' +
-                    '<div class="td">' + esc(L(s.ds)) + '</div>' +
-                    '<div class="tp">' + esc(s.pr) + '</div>' +
-                    '<span class="tl">' + esc(T("more")) + '</span></div>';
-      b.addEventListener("click", function(){ openSheet(i); });
-      tiles.appendChild(b);
+  /* ---------- KATALOG: suzgi, izdeu, surypтау, tor ---------- */
+  var F = {q:"", cat:"all", price:{}, col:{}, stock:false, sort:"pop", shown:8};
+  var cgrid = document.getElementById("cgrid"), cchips = document.getElementById("cchips"), ccount = document.getElementById("ccount"),
+      cfx = document.getElementById("cfx"), cempty = document.getElementById("cempty"), cmoreW = document.getElementById("cmoreW"),
+      cmore = document.getElementById("cmore"), cq = document.getElementById("cq"), cfBtn = document.getElementById("cfBtn"), cfN = document.getElementById("cfN");
+  function allItems(){
+    var out = [];
+    PRODUCTS.forEach(function(p){ p.variants.forEach(function(v){ out.push({p:p, v:v, sz:sizeOf(p, null)}); }); });
+    return out;
+  }
+  function priceBand(n){ return n < 500000 ? "pr1" : (n < 1000000 ? "pr2" : "pr3"); }
+  function hasKeys(o){ for (var k in o) if (o[k]) return true; return false; }
+  function matches(it){
+    if (F.cat !== "all" && it.p.cat !== F.cat) return false;
+    var pr = priceOf(it.p, it.v, it.sz);
+    if (hasKeys(F.price) && !F.price[priceBand(pr)]) return false;
+    if (hasKeys(F.col) && !F.col[it.v.cg]) return false;
+    if (F.stock && it.v.stock !== "in") return false;
+    if (F.q){
+      var q = F.q.toLowerCase(), hay = [it.p.nm.kk, it.p.nm.ru, it.p.ds.kk, it.p.ds.ru, it.v.col.kk, it.v.col.ru, T(CAT_KEY[it.p.cat])].join(" ").toLowerCase();
+      if (hay.indexOf(q) < 0) return false;
+    }
+    return true;
+  }
+  function sorted(items){
+    var rank = function(it){ return (it.v.badge === "hit" ? 0 : 1) + (it.v.stock === "in" ? 0 : 2); };
+    if (F.sort === "asc") items.sort(function(a, b){ return priceOf(a.p, a.v, a.sz) - priceOf(b.p, b.v, b.sz); });
+    else if (F.sort === "desc") items.sort(function(a, b){ return priceOf(b.p, b.v, b.sz) - priceOf(a.p, a.v, a.sz); });
+    else if (F.sort === "new") items.sort(function(a, b){ return (a.v.badge === "new" ? 0 : 1) - (b.v.badge === "new" ? 0 : 1); });
+    else items.sort(function(a, b){ return rank(a) - rank(b); });
+    return items;
+  }
+  function activeCount(){ var n = 0; for (var k in F.price) if (F.price[k]) n++; for (var c in F.col) if (F.col[c]) n++; if (F.stock) n++; if (F.sort !== "pop") n++; return n; }
+  function badgeHtml(v){
+    if (v.old && v.old > v.pr) return '<span class="badge sale">\u2212' + Math.round(100 - 100 * v.pr / v.old) + '%</span>';
+    if (v.badge === "hit") return '<span class="badge hit">' + esc(T("badgeHit")) + '</span>';
+    if (v.badge === "new") return '<span class="badge new">' + esc(T("badgeNew")) + '</span>';
+    return "";
+  }
+  function cardHtml(it){
+    var pr = priceOf(it.p, it.v, it.sz), old = oldOf(it.p, it.v, it.sz);
+    var dots = ""; it.p.variants.forEach(function(x){ dots += '<i style="background:' + x.hex + '"></i>'; });
+    return badgeHtml(it.v) +
+      '<img class="pimg" src="' + it.v.img[0] + '" alt="" width="880" height="660" loading="lazy">' +
+      (it.p.variants.length > 1 ? '<span class="pcol" aria-hidden="true">' + dots + '</span>' : '') +
+      '<div class="pb"><div class="pn">' + esc(L(it.p.nm)) + '</div>' +
+      '<div class="pd">' + esc(L(it.v.col)) + ' \u00b7 ' + esc(L(it.p.ds)) + '</div>' +
+      '<div class="pp"><b>' + esc(fmtT(pr)) + '</b>' + (old ? '<s>' + esc(fmtT(old)) + '</s>' : '') + '</div>' +
+      '<div class="pm">0-0-12: ' + esc(monthly(pr)) + '</div>' +
+      '<div class="pa ' + it.v.stock + '">' + esc(T(it.v.stock === "in" ? "inStock" : "onOrder")) + '</div></div>';
+  }
+  function renderChips(){
+    var all = allItems(), html = "";
+    var mk = function(id, key, n){ return '<button type="button" class="chip' + (F.cat === id ? ' on' : '') + '" role="tab" aria-selected="' + (F.cat === id) + '" data-cat="' + id + '">' + esc(T(key)) + '<small>' + n + '</small></button>'; };
+    html += mk("all", "catAll", all.length);
+    CATS.forEach(function(c){ html += mk(c, CAT_KEY[c], all.filter(function(it){ return it.p.cat === c; }).length); });
+    cchips.innerHTML = html;
+    Array.prototype.forEach.call(cchips.querySelectorAll(".chip"), function(b){
+      b.addEventListener("click", function(){ F.cat = b.getAttribute("data-cat"); F.shown = 8; renderCatalog(); });
     });
   }
+  function renderCatalog(){
+    renderChips();
+    var items = sorted(allItems().filter(matches));
+    ccount.textContent = T("count").replace("{n}", items.length);
+    /* belsendi suzgiler - alynatyn chipter */
+    var fx = "";
+    for (var k in F.price) if (F.price[k]) fx += '<button type="button" data-fx="price:' + k + '">' + esc(T(k)) + '</button>';
+    for (var c in F.col) if (F.col[c]) fx += '<button type="button" data-fx="col:' + c + '">' + esc(T(COL_KEY[c])) + '</button>';
+    if (F.stock) fx += '<button type="button" data-fx="stock">' + esc(T("inStock")) + '</button>';
+    if (F.sort !== "pop") fx += '<button type="button" data-fx="sort">' + esc(T("sort" + F.sort.charAt(0).toUpperCase() + F.sort.slice(1))) + '</button>';
+    cfx.innerHTML = fx;
+    Array.prototype.forEach.call(cfx.querySelectorAll("button"), function(b){
+      b.addEventListener("click", function(){
+        var d = b.getAttribute("data-fx").split(":");
+        if (d[0] === "price") delete F.price[d[1]]; else if (d[0] === "col") delete F.col[d[1]]; else if (d[0] === "stock") F.stock = false; else F.sort = "pop";
+        renderCatalog();
+      });
+    });
+    var n = activeCount(); cfN.textContent = n; cfN.classList.toggle("on", n > 0);
+    cgrid.innerHTML = "";
+    items.slice(0, F.shown).forEach(function(it){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "pc"; b.innerHTML = cardHtml(it);
+      b.setAttribute("aria-label", L(it.p.nm) + ", " + L(it.v.col) + ", " + fmtT(priceOf(it.p, it.v, it.sz)));
+      b.addEventListener("click", function(){ openSheet(it.p.id, it.v.id); });
+      cgrid.appendChild(b);
+    });
+    cempty.hidden = items.length > 0;
+    var rest = items.length - F.shown;
+    cmoreW.hidden = rest <= 0;
+    if (rest > 0) cmore.textContent = T("moreN").replace("{n}", rest);
+  }
+  cmore.addEventListener("click", function(){ F.shown += 8; renderCatalog(); });
+  document.getElementById("cclear").addEventListener("click", function(){ F = {q:"", cat:"all", price:{}, col:{}, stock:false, sort:"pop", shown:8}; cq.value = ""; renderCatalog(); });
+  var qTimer = 0;
+  cq.addEventListener("input", function(){ clearTimeout(qTimer); qTimer = setTimeout(function(){ F.q = cq.value.trim(); F.shown = 8; renderCatalog(); }, 120); });
+
+  /* suzgi paragy */
+  var fsheetC = document.getElementById("fsheetC");
+  function renderFilterSheet(){
+    var chip = function(on, attrs, inner){ return '<button type="button" class="chip' + (on ? ' on' : '') + '" aria-pressed="' + on + '" ' + attrs + '>' + inner + '</button>'; };
+    var html = '<h3 id="fsNm" style="margin:0 0 4px">' + esc(T("filtersH")) + '</h3>';
+    html += '<div class="fsec"><div class="fk">' + esc(T("fPrice")) + '</div><div class="frow">';
+    ["pr1", "pr2", "pr3"].forEach(function(k){ html += chip(!!F.price[k], 'data-f="price" data-v="' + k + '"', esc(T(k))); });
+    html += '</div></div><div class="fsec"><div class="fk">' + esc(T("fColor")) + '</div><div class="frow">';
+    for (var c in COLS) html += chip(!!F.col[c], 'data-f="col" data-v="' + c + '"', '<i style="background:' + COLS[c] + '"></i>' + esc(T(COL_KEY[c])));
+    html += '</div></div><div class="fsec"><div class="fk">' + esc(T("fAvail")) + '</div><div class="frow">' + chip(F.stock, 'data-f="stock"', esc(T("onlyStock"))) + '</div></div>';
+    html += '<div class="fsec"><div class="fk">' + esc(T("fSort")) + '</div><div class="frow">';
+    [["pop", "sortPop"], ["asc", "sortAsc"], ["desc", "sortDesc"], ["new", "sortNew"]].forEach(function(o){ html += chip(F.sort === o[0], 'data-f="sort" data-v="' + o[0] + '"', esc(T(o[1]))); });
+    html += '</div></div>';
+    var n = allItems().filter(matches).length;
+    html += '<div class="fbtns"><button type="button" class="btn btn-s" id="fReset">' + esc(T("reset")) + '</button><button type="button" class="btn btn-p" id="fApply">' + esc(T("apply")) + ' \u00b7 ' + n + '</button></div>';
+    fsheetC.innerHTML = html;
+    Array.prototype.forEach.call(fsheetC.querySelectorAll(".chip"), function(b){
+      b.addEventListener("click", function(){
+        var f = b.getAttribute("data-f"), v = b.getAttribute("data-v");
+        if (f === "price"){ if (F.price[v]) delete F.price[v]; else F.price[v] = true; }
+        else if (f === "col"){ if (F.col[v]) delete F.col[v]; else F.col[v] = true; }
+        else if (f === "stock") F.stock = !F.stock;
+        else F.sort = v;
+        F.shown = 8; renderFilterSheet(); renderCatalog();
+      });
+    });
+    document.getElementById("fReset").addEventListener("click", function(){ F.price = {}; F.col = {}; F.stock = false; F.sort = "pop"; F.shown = 8; renderFilterSheet(); renderCatalog(); });
+    document.getElementById("fApply").addEventListener("click", function(){ fsh.close(); });
+  }
+  cfBtn.addEventListener("click", function(){ renderFilterSheet(); fsh.open(); });
 
   /* tizimnen bassa - bet sol zat koringen oryndy tabady */
   function goSpot(i){
@@ -1066,18 +1366,18 @@ body.sheet-open{overflow:hidden}
   var openIdx = -1;      /* qai zat ashyq - joq bolsa -1 */
 
   function showCard(i, movedView){
-    var s2 = SPOTS[i], prev = openIdx;
+    var it = spotItem(i), s2 = SPOTS[i], prev = openIdx, pr = priceOf(it.p, it.v, it.sz);
     openIdx = i;
 
     card.innerHTML =
       '<button class="x" type="button" id="cx" aria-label="' + esc(T("close")) + '">\u00d7</button>' +
-      '<button class="hd" type="button" id="cHd" aria-label="' + esc(T("more") + ": " + L(s2.nm)) + '">' +
-        (s2.im ? '<img class="thumb" src="' + s2.im + '" alt="" width="880" height="660">' : '') +
+      '<button class="hd" type="button" id="cHd" aria-label="' + esc(T("more") + ": " + L(it.p.nm)) + '">' +
+        '<img class="thumb" src="' + it.v.img[0] + '" alt="" width="880" height="660">' +
       '</button>' +
-      '<button class="txt" type="button" id="cTxt" aria-label="' + esc(T("more") + ": " + L(s2.nm) + ", " + s2.pr) + '">' +
-        '<span class="nm" id="cNm">' + esc(L(s2.nm)) + '</span>' +
-        '<span class="ds">' + esc(L(s2.ds)) + '</span>' +
-        '<span class="pr">' + esc(s2.pr) + '</span>' +
+      '<button class="txt" type="button" id="cTxt" aria-label="' + esc(T("more") + ": " + L(it.p.nm) + ", " + fmtT(pr)) + '">' +
+        '<span class="nm" id="cNm">' + esc(L(it.p.nm)) + '</span>' +
+        '<span class="ds">' + esc(L(it.v.col) + " \u00b7 " + L(it.p.ds)) + '</span>' +
+        '<span class="pr">' + esc(fmtT(pr)) + '</span>' +
         '<span class="more">' + esc(T("more")) + '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>' +
       '</button>' +
       '<div class="ft">' +
@@ -1086,7 +1386,7 @@ body.sheet-open{overflow:hidden}
           '<button class="nv" type="button" id="cNext" aria-label="' + esc(T("nextItem")) + '">\u203a</button>' +
         '</div>' +
         '<span class="cnt">' + (i + 1) + ' / ' + SPOTS.length + '</span>' +
-        '<a class="go" target="_blank" rel="noopener" href="' + waLink(s2) + '">' + WA_ICON + esc(T("contact")) + '</a>' +
+        '<a class="go" target="_blank" rel="noopener" href="' + waLink(it) + '">' + WA_ICON + esc(T("contact")) + '</a>' +
       '</div>';
 
     /* belgini jappasyn - zat tomende bolsa kartochka jogaryga shygady */
@@ -1099,7 +1399,7 @@ body.sheet-open{overflow:hidden}
       e.stopPropagation(); hideCard(true);
     });
     ["cHd", "cTxt"].forEach(function(id){
-      document.getElementById(id).addEventListener("click", function(e){ e.stopPropagation(); openSheet(i); });
+      document.getElementById(id).addEventListener("click", function(e){ e.stopPropagation(); openSheet(it.p.id, it.v.id); });
     });
     document.getElementById("cPrev").addEventListener("click", function(e){
       e.stopPropagation(); step(-1);
@@ -1137,7 +1437,7 @@ body.sheet-open{overflow:hidden}
 
   /* jabudyn eki joly: Esc jane syrtyna basu */
   addEventListener("keydown", function(e){
-    if (sheetOn){ if (e.key === "Escape"){ e.preventDefault(); closeSheet(); } return; }   /* paraq ashyq - basqa perneler bolmege barmaidy */
+    if (sheetOnAny()){ if (e.key === "Escape"){ e.preventDefault(); closeTop(); } return; }   /* paraq ashyq - basqa perneler bolmege barmaidy */
     if (e.key === "Escape" && openIdx >= 0){ hideCard(true); }
     else if (openIdx >= 0 && (e.key === "ArrowRight" || e.key === "ArrowLeft")){
       e.preventDefault(); step(e.key === "ArrowRight" ? 1 : -1);
@@ -1439,63 +1739,123 @@ body.sheet-open{overflow:hidden}
   imgW = IMG_W; imgH = IMG_H; ready = true;
   draw();
 
-  /* ---------- tauar paragy (sheet) ---------- */
-  var sheet = document.getElementById("sheet"), sheetC = document.getElementById("sheetC"),
-      sheetX = document.getElementById("sheetX"), sheetBg = document.getElementById("sheetBg"), sheetP = document.getElementById("sheetP");
-  var sheetOn = false, sheetLast = null, sheetTimer = 0, sheetIdx = -1;
-  function num(pr){ return parseInt(String(pr).replace(/[^0-9]/g, ""), 10) || 0; }
-  function fmtT(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " \u20b8"; }
-  function monthly(pr){ var n = num(pr); return n ? fmtT(Math.round(n / 12 / 100) * 100) : ""; }   /* 0-0-12, juzge domalaqtau */
-  function fillSheet(i){
-    var s2 = SPOTS[i], rows = "";
-    (L(s2.sp) || []).forEach(function(r){ rows += '<div class="r"><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>'; });
+  /* ---------- paraqtar (sheet): tauar jane suzgi - bir kontroller ---------- */
+  var openSheets = [];
+  function mkSheet(id){
+    var el = document.getElementById(id), panel = document.getElementById(id + "P"), x = document.getElementById(id + "X"), bg = document.getElementById(id + "Bg");
+    var o = {el:el, on:false, last:null, timer:0};
+    o.open = function(){
+      clearTimeout(o.timer);
+      if (!o.on){ o.last = document.activeElement; openSheets.push(o); }
+      o.on = true;
+      el.classList.add("on"); el.setAttribute("aria-hidden", "false");
+      document.body.classList.add("sheet-open");
+      setTimeout(function(){ el.classList.add("in"); panel.focus({preventScroll:true}); }, 20);
+    };
+    o.close = function(){
+      if (!o.on) return;
+      o.on = false; openSheets = openSheets.filter(function(x){ return x !== o; });
+      el.classList.remove("in");
+      if (!openSheets.length) document.body.classList.remove("sheet-open");
+      o.timer = setTimeout(function(){
+        el.classList.remove("on"); el.setAttribute("aria-hidden", "true");
+        if (o.last && o.last.focus) o.last.focus({preventScroll:true});
+      }, 380);
+    };
+    x.addEventListener("click", o.close);
+    bg.addEventListener("click", o.close);
+    el.addEventListener("keydown", function(e){                  /* fokus paraq ishinde qalsyn */
+      if (e.key !== "Tab") return;
+      var f = el.querySelectorAll("button, a[href], input"), first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+    return o;
+  }
+  var sh = mkSheet("sheet"), fsh = mkSheet("fsheet");
+  var sheetC = document.getElementById("sheetC");
+  var shCur = null;                                           /* {pid, vid, sid} - ashyq tauar */
+  function sheetOnAny(){ return openSheets.length > 0; }
+  function closeTop(){ if (openSheets.length) openSheets[openSheets.length - 1].close(); }
+
+  /* olshem syzbasy: aldyngy jagy + usti (izometriya), belgiler eni / terendigi / biiktigi */
+  function dimSvg(W, D, H){
+    var k = 200 / Math.max(W + D * 0.5, H + D * 0.35, 1), w = W * k, h = H * k, dd = D * k * 0.5, dy = D * k * 0.35;
+    var x0 = 34, y0 = 22 + dy, vw = x0 + w + dd + 70, vh = y0 + h + 30;
+    var P = function(x, y){ return x.toFixed(1) + "," + y.toFixed(1); };
+    return '<svg viewBox="0 0 ' + vw.toFixed(0) + ' ' + vh.toFixed(0) + '" aria-hidden="true">' +
+      '<polygon points="' + P(x0, y0) + ' ' + P(x0 + dd, y0 - dy) + ' ' + P(x0 + w + dd, y0 - dy) + ' ' + P(x0 + w, y0) + '" fill="#efece6" stroke="#1d1d1f" stroke-width="1.2" stroke-linejoin="round"/>' +
+      '<polygon points="' + P(x0 + w, y0) + ' ' + P(x0 + w + dd, y0 - dy) + ' ' + P(x0 + w + dd, y0 - dy + h) + ' ' + P(x0 + w, y0 + h) + '" fill="#e3dfd8" stroke="#1d1d1f" stroke-width="1.2" stroke-linejoin="round"/>' +
+      '<rect x="' + x0 + '" y="' + y0 + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) + '" fill="#fff" stroke="#1d1d1f" stroke-width="1.2"/>' +
+      '<text x="' + (x0 + w / 2).toFixed(1) + '" y="' + (y0 + h + 19) + '" font-size="12" text-anchor="middle" fill="#1d1d1f" font-weight="600">' + W + ' \u0441\u043c <tspan fill="#6e6e73" font-weight="400">' + esc(T("dimW")) + '</tspan></text>' +
+      '<text x="' + (x0 + w + dd + 8).toFixed(1) + '" y="' + (y0 - dy + h / 2 + 4).toFixed(1) + '" font-size="12" fill="#1d1d1f" font-weight="600">' + H + ' \u0441\u043c</text>' +
+      '<text x="' + (x0 + w + dd + 8).toFixed(1) + '" y="' + (y0 - dy + h / 2 + 18).toFixed(1) + '" font-size="11" fill="#6e6e73">' + esc(T("dimH")) + '</text>' +
+      '<text x="' + (x0 + w + dd / 2 + 4).toFixed(1) + '" y="' + (y0 - dy - 6).toFixed(1) + '" font-size="12" fill="#1d1d1f" font-weight="600">' + D + ' \u0441\u043c <tspan fill="#6e6e73" font-weight="400">' + esc(T("dimD")) + '</tspan></text>' +
+      '</svg>';
+  }
+  function fillSheet(pid, vid, sid){
+    var p = prod(pid), v = variant(p, vid), sz = sizeOf(p, sid), it = {p:p, v:v, sz:sz};
+    shCur = {pid:pid, vid:v.id, sid:sz ? sz.id : null};
+    var pr = priceOf(p, v, sz), old = oldOf(p, v, sz), dim = sz ? sz.dim : p.dim, rows = "", i;
+    (L(p.sp) || []).forEach(function(r){ rows += '<div class="r"><dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd></div>'; });
+    var gal = "", dots = "", th = "";
+    for (i = 0; i < v.img.length; i++){
+      gal += '<div class="gi' + (i === 1 ? '' : ' fit') + '"><img src="' + v.img[i] + '" alt="" width="880" height="660"' + (i ? ' loading="lazy"' : '') + '></div>';
+      dots += '<i' + (i === 0 ? ' class="on"' : '') + '></i>';
+      th += '<button type="button" data-g="' + i + '"' + (i === 0 ? ' class="on"' : '') + ' aria-label="' + (i + 1) + '/' + v.img.length + '"><img src="' + v.img[i] + '" alt="" loading="lazy"></button>';
+    }
+    var sw = ""; p.variants.forEach(function(x){ sw += '<button type="button" data-v="' + x.id + '" style="background:' + x.hex + '" aria-pressed="' + (x.id === v.id) + '" aria-label="' + esc(L(x.col)) + '" class="' + (x.id === v.id ? 'on' : '') + '"></button>'; });
+    var sizes = ""; if (p.sizes) p.sizes.forEach(function(x){ sizes += '<button type="button" class="chip' + (sz && x.id === sz.id ? ' on' : '') + '" data-s="' + x.id + '" aria-pressed="' + (sz && x.id === sz.id) + '">' + esc(L(x.lbl)) + '</button>'; });
+    var rel = ""; (RELATED[p.id] || []).forEach(function(rid){
+      var rp = prod(rid); if (!rp) return; var rv = rp.variants[0];
+      rel += '<button type="button" class="rc" data-p="' + rid + '"><img src="' + rv.img[0] + '" alt="" loading="lazy"><span class="rn">' + esc(L(rp.nm)) + '</span><span class="rp">' + esc(fmtT(priceOf(rp, rv, sizeOf(rp, null)))) + '</span></button>';
+    });
     sheetC.innerHTML =
-      '<img class="simg" src="' + s2.im + '" alt="" width="880" height="660">' +
-      '<h3 id="shNm">' + esc(L(s2.nm)) + '</h3>' +
-      '<div class="ssub">' + esc(L(s2.ds)) + '</div>' +
-      '<div class="sprice"><b>' + esc(s2.pr) + '</b>' +
-        (monthly(s2.pr) ? '<span>' + esc(T("perMonth").replace("{sum}", monthly(s2.pr))) + '</span>' : '') + '</div>' +
-      (L(s2.txt) ? '<p class="stxt">' + esc(L(s2.txt)) + '</p>' : '') +
+      '<div class="gal">' + badgeHtml(v) + '<div class="gtrack" id="gtrack">' + gal + '</div><div class="gdots" id="gdots">' + dots + '</div></div>' +
+      '<div class="gthumbs" id="gthumbs">' + th + '</div>' +
+      '<h3 id="shNm">' + esc(L(p.nm)) + '</h3>' +
+      '<div class="ssub">' + esc(L(v.col) + (sz ? ", " + L(sz.lbl) : "") + " \u00b7 " + L(p.ds)) + '</div>' +
+      '<div class="sprice"><b>' + esc(fmtT(pr)) + '</b>' + (old ? '<s>' + esc(fmtT(old)) + '</s><span class="off">\u2212' + Math.round(100 - 100 * pr / old) + '%</span>' : '') +
+        '<span>' + esc(T("perMonth").replace("{sum}", monthly(pr))) + '</span></div>' +
+      '<div class="savail ' + v.stock + '">' + esc(T(v.stock === "in" ? "inStockD" : "onOrder")) + '</div>' +
+      '<div class="sopt"><div class="sk">' + esc(T("color")) + ': <b>' + esc(L(v.col)) + '</b></div><div class="swatches" id="swatches">' + sw + '</div></div>' +
+      (sizes ? '<div class="sopt"><div class="sk">' + esc(T("size")) + '</div><div class="sizes" id="sizes">' + sizes + '</div></div>' : '') +
+      (L(p.txt) ? '<p class="stxt">' + esc(L(p.txt)) + '</p>' : '') +
+      '<div class="sdim"><div class="dk">' + esc(T("dims")) + '</div>' + dimSvg(dim[0], dim[1], dim[2]) + '</div>' +
       (rows ? '<dl class="specs">' + rows + '</dl>' : '') +
+      (rel ? '<div class="srel"><div class="sk">' + esc(T("related")) + '</div><div class="srow">' + rel + '</div></div>' : '') +
       '<div class="sbtns">' +
-        '<a class="btn btn-p" target="_blank" rel="noopener" href="' + waLink(s2) + '">' + WA_ICON + esc(T("contact")) + '</a>' +
-        '<button class="btn btn-s" type="button" id="shRoom">' + esc(T("inRoom")) + '</button>' +
+        '<a class="btn btn-p" target="_blank" rel="noopener" href="' + waLink(it) + '">' + WA_ICON + esc(T("contact")) + '</a>' +
+        (p.spot >= 0 ? '<button class="btn btn-s" type="button" id="shRoom">' + esc(T("inRoom")) + '</button>' : '') +
       '</div>' +
       '<div class="snote">' + esc(T("note")) + '</div>';
-    document.getElementById("shRoom").addEventListener("click", function(){
-      closeSheet();
-      setTimeout(function(){ goSpot(i); }, 380);
+    /* galereya */
+    var track = document.getElementById("gtrack"), gd = document.getElementById("gdots").children, gt = document.getElementById("gthumbs").children;
+    function galIdx(){ return Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); }
+    track.addEventListener("scroll", function(){
+      var k = galIdx();
+      for (var j = 0; j < gd.length; j++){ gd[j].classList.toggle("on", j === k); gt[j].classList.toggle("on", j === k); }
+    }, {passive:true});
+    Array.prototype.forEach.call(gt, function(b){ b.addEventListener("click", function(){ track.scrollTo({left: (+b.getAttribute("data-g")) * track.clientWidth, behavior:"smooth"}); }); });
+    /* nusqalar: tus / olshem - paraq ornynda qaita toltyrylady */
+    Array.prototype.forEach.call(document.getElementById("swatches").children, function(b){
+      b.addEventListener("click", function(){ var top = sheetC.scrollTop; fillSheet(pid, b.getAttribute("data-v"), shCur.sid); sheetC.scrollTop = top; });
     });
+    var sizesEl = document.getElementById("sizes");
+    if (sizesEl) Array.prototype.forEach.call(sizesEl.children, function(b){
+      b.addEventListener("click", function(){ var top = sheetC.scrollTop; fillSheet(pid, v.id, b.getAttribute("data-s")); sheetC.scrollTop = top; });
+    });
+    Array.prototype.forEach.call(sheetC.querySelectorAll(".rc"), function(b){
+      b.addEventListener("click", function(){ fillSheet(b.getAttribute("data-p"), null, null); sheetC.scrollTop = 0; });
+    });
+    var rb = document.getElementById("shRoom");
+    if (rb) rb.addEventListener("click", function(){ sh.close(); setTimeout(function(){ goSpot(p.spot); }, 380); });
   }
-  function openSheet(i){
-    sheetIdx = i; fillSheet(i);
-    clearTimeout(sheetTimer);
-    sheetLast = document.activeElement;
-    sheetOn = true;
-    sheet.classList.add("on"); sheet.setAttribute("aria-hidden", "false");
-    document.body.classList.add("sheet-open");
+  function openSheet(pid, vid){
+    fillSheet(pid, vid, null);
     sheetC.scrollTop = 0;
-    setTimeout(function(){ sheet.classList.add("in"); sheetP.focus({preventScroll:true}); }, 20);
+    sh.open();
   }
-  function closeSheet(){
-    if (!sheetOn) return;
-    sheetOn = false;
-    sheet.classList.remove("in");
-    document.body.classList.remove("sheet-open");
-    sheetTimer = setTimeout(function(){
-      sheet.classList.remove("on"); sheet.setAttribute("aria-hidden", "true");
-      if (sheetLast && sheetLast.focus) sheetLast.focus({preventScroll:true});
-    }, 380);
-  }
-  sheetX.addEventListener("click", closeSheet);
-  sheetBg.addEventListener("click", closeSheet);
-  /* fokus paraq ishinde qalsyn (qarapaiym tuzaq) */
-  sheet.addEventListener("keydown", function(e){
-    if (e.key !== "Tab") return;
-    var f = sheet.querySelectorAll("button, a[href]"), first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
-  });
 
   /* ---------- til auystyru ---------- */
   var waHero = document.getElementById("waHero");
@@ -1518,13 +1878,15 @@ body.sheet-open{overflow:hidden}
       var on = b.getAttribute("data-lang") === lang;
       b.classList.toggle("on", on); b.setAttribute("aria-pressed", on ? "true" : "false");
     });
-    els.forEach(function(e, i){ e.setAttribute("aria-label", L(SPOTS[i].nm) + ", " + SPOTS[i].pr); });
+    els.forEach(function(e, i){ var it = spotItem(i); e.setAttribute("aria-label", L(it.p.nm) + ", " + fmtT(priceOf(it.p, it.v, it.sz))); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-i18n-ph]"), function(el){ el.placeholder = T(el.getAttribute("data-i18n-ph")); });
     document.getElementById("hintT").textContent = T("hint").replace("{n}", SPOTS.length);
     waAll.forEach(function(a){ a.href = waLink(null); });
-    renderTiles();
+    renderCatalog();
     renderSvc();
     if (openIdx >= 0) showCard(openIdx, true);
-    if (sheetOn && sheetIdx >= 0) fillSheet(sheetIdx);
+    if (sh.on && shCur) fillSheet(shCur.pid, shCur.vid, shCur.sid);
+    if (fsh.on) renderFilterSheet();
   }
   Array.prototype.forEach.call(langBtns, function(b){
     b.addEventListener("click", function(e){ e.stopPropagation(); setLang(b.getAttribute("data-lang")); });
