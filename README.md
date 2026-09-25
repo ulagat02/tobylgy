@@ -7,3 +7,5 @@
 `zetta.html`, `zeta.html`, `symbat.html`. Негізгі бет `?store=zetta` параметрімен де сол дүкенді көрсетеді.
 
 Бұл репозиторийде тек жарияланатын файлдар. Көзі мен құрылыс құжаты — жеке жобада (`furniture/room-hero.html`, `room-hero-LOGIC.md`, `make_stores.py`, `stores.json`).
+
+`supabase-sql/` — Supabase үшін SQL оқу курсы: осы дүкеннің тауарларымен 10 практикалық сабақ, тапсырмалар және шешімдер. Бастау: [supabase-sql/README.md](supabase-sql/README.md).
